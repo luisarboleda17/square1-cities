@@ -31,7 +31,7 @@ class CacheManager {
     public func getResults<T: Cacheable>(forQuery query: String, objectType: T.Type) -> Results<T>? {
         do {
             let inMemoryRealm = try Realm(configuration: storageRealmConfiguration)
-            let cacheFilter = NSPredicate(format: "limitValidDate > %@ AND query == %@", NSDate(), query)
+            let cacheFilter = NSPredicate(format: "expiryDate > %@ AND query == %@", NSDate(), query)
             let inMemoryResults = search(withRealm: inMemoryRealm, filter: cacheFilter, type: objectType)
             
             if (inMemoryResults.count > 0) {
