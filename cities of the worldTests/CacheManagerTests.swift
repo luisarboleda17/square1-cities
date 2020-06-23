@@ -66,7 +66,7 @@ class CacheManagerTests: XCTestCase {
             )
             storageRealm.add(
                 City(
-                    id: 1,
+                    id: 2,
                     name: "Bogota",
                     localName: "Bogota",
                     lat: nil,
