@@ -7,12 +7,20 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let cacheManager = CacheManager(
+            storageConfiguration: Realm.Configuration.defaultConfiguration,
+            inMemoryConfiguration: Realm.Configuration(inMemoryIdentifier: "cities")
+        )
+        
+        print(cacheManager.getResults(forQuery: "panama", objectType: Cacheable.self))
     }
 
 
