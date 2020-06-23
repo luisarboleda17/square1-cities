@@ -10,6 +10,6 @@ import Foundation
 import RealmSwift
 
 class Cacheable: Object {
-    @objc dynamic var expiryDate: Date!
+    @objc dynamic var expiryDate: Date?
     @objc dynamic var query: String!
 }
