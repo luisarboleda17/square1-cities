@@ -23,8 +23,8 @@ class City: Cacheable {
         id: Int,
         name: String,
         localName: String,
-        lat: Double,
-        lng: Double,
+        lat: Double?,
+        lng: Double?,
         updatedAt: Date,
         countryName: String,
         continentName: String,
@@ -35,8 +35,8 @@ class City: Cacheable {
         self.id = id
         self.name = name
         self.localName = localName
-        self.lat = lat
-        self.lng = lng
+        self.lat = lat ?? 0.0
+        self.lng = lng ?? 0.0
         self.updatedAt = updatedAt
         self.countryName = countryName
         self.continentName = continentName
