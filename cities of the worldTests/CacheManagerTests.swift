@@ -26,12 +26,12 @@ class CacheManagerTests: XCTestCase {
     
     func testGetResultsInvalidMemoryCache() throws {
         // Create realms
-        let inMemoryRealm = try! Realm(configuration: inMemoryConfiguration)
-        let storageRealm = try! Realm(configuration: storeConfiguration)
+        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
+        let storageRealm = try Realm(configuration: storeConfiguration)
         let query = "panama"
         
         // Add in memory default values
-        try! inMemoryRealm.write {
+        try inMemoryRealm.write {
             inMemoryRealm.add(
                 City(
                     id: 1,
@@ -49,7 +49,7 @@ class CacheManagerTests: XCTestCase {
         }
         
         // Add storage default values
-        try! storageRealm.write {
+        try storageRealm.write {
             storageRealm.add(
                 City(
                     id: 1,
