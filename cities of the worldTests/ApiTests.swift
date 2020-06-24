@@ -25,4 +25,21 @@ class ApiTests: XCTestCase {
         
         waitForExpectations(timeout: 5.0, handler: nil)
     }
+    
+    func testSearchPagination() throws {
+        let currentPage = 2
+        let pageFetchExpectation = expectation(description: "Api client returned page correctly")
+        
+        apiClient.searchCities(withQuery: query, page: currentPage) {
+            response in
+            guard let response = response else {
+                return
+            }
+            if (response.data.pagination.currentPage == currentPage) {
+                pageFetchExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
 }
