@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class City: Cacheable {
+class City: Cacheable, Decodable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String!
     @objc dynamic var localName: String!
@@ -19,6 +19,57 @@ class City: Cacheable {
     @objc dynamic var countryName: String!
     @objc dynamic var continentName: String!
     @objc dynamic var page: Int = 0
+    
+    enum CityKeys: String, CodingKey {
+        case id
+        case name
+        case localName = "local_name"
+        case lat
+        case lng
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case country
+    }
+    
+    enum CountryKeys: String, CodingKey {
+        case id
+        case name
+        case code
+        case continent
+    }
+    
+    enum ContinentKeys: String, CodingKey {
+        case id
+        case name
+    }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override class func indexedProperties() -> [String] {
+        return ["expiryDate", "query"]
+    }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let cityContainer = try decoder.container(keyedBy: CityKeys.self)
+        self.id = try cityContainer.decode(Int.self, forKey: CityKeys.id)
+        self.name = try cityContainer.decode(String.self, forKey: CityKeys.name)
+        self.localName = try cityContainer.decode(String.self, forKey: CityKeys.localName)
+        self.lat = try cityContainer.decode(Double.self, forKey: CityKeys.lat)
+        self.lng = try cityContainer.decode(Double.self, forKey: CityKeys.lng)
+        self.updatedAt = try cityContainer.decode(Date.self, forKey: CityKeys.updatedAt)
+        
+        let countryContainer = try cityContainer.nestedContainer(keyedBy: CountryKeys.self, forKey: CityKeys.country)
+        self.countryName = try countryContainer.decode(String.self, forKey: CountryKeys.name)
+        
+        let continentContainer = try countryContainer.nestedContainer(keyedBy: ContinentKeys.self, forKey: CountryKeys.continent)
+        self.continentName = try continentContainer.decode(String.self, forKey: ContinentKeys.name)
+    }
     
     convenience init(
         id: Int,
@@ -48,13 +99,5 @@ class City: Cacheable {
         if let expDate = expiryDate {
             self.expiryDate = expDate
         }
-    }
-    
-    override class func primaryKey() -> String? {
-        return "id"
-    }
-    
-    override class func indexedProperties() -> [String] {
-        return ["expiryDate", "query"]
     }
 }
