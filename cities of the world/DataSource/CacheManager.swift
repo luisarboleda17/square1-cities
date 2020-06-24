@@ -26,26 +26,47 @@ class CacheManager {
     }
     
     /**
+     Remove all elements that match the query
+     */
+    private func delete<T: Cacheable>(withRealm realm: Realm, forQuery query: String, objectType: T.Type) throws {
+        try realm.write {
+            realm.delete(
+                search(
+                    withRealm: realm,
+                    filter: NSPredicate(format: "query == %@", query),
+                    type: objectType
+                )
+            )
+        }
+    }
+    
+    /**
+     Copy results from one realm to another realm
+     */
+    private func copy<T: Cacheable>(results: Results<T>, toRealm realm: Realm, objectType: T.Type) throws {
+        try realm.write {
+            results.forEach { realm.create(objectType, value: $0, update: Realm.UpdatePolicy.all) }
+        }
+    }
+    
+    /**
      Get cached cities for specific query
      */
     public func getResults<T: Cacheable>(forQuery query: String, objectType: T.Type) -> Results<T>? {
         do {
-            let inMemoryRealm = try Realm(configuration: storageRealmConfiguration)
+            let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
             let cacheFilter = NSPredicate(format: "expiryDate > %@ AND query == %@", NSDate(), query)
             let inMemoryResults = search(withRealm: inMemoryRealm, filter: cacheFilter, type: objectType)
             
             if (inMemoryResults.count > 0) {
                 return inMemoryResults
             } else {
-                let storageRealm = try Realm(configuration: inMemoryRealmConfiguration)
+                let storageRealm = try Realm(configuration: storageRealmConfiguration)
                 let storageResults = search(withRealm: storageRealm, filter: cacheFilter, type: objectType)
                 
                 if (storageResults.count > 0) {
-                    let removeForQueryFilter = NSPredicate(format: "query == %@", query)
-                    inMemoryRealm.delete(search(withRealm: inMemoryRealm, filter: removeForQueryFilter, type: objectType))
-                    for result in storageResults {
-                        inMemoryRealm.create(objectType, value: result, update: Realm.UpdatePolicy.all)
-                    }
+                    try delete(withRealm: inMemoryRealm, forQuery: query, objectType: objectType)
+                    try copy(results: storageResults, toRealm: inMemoryRealm, objectType: objectType)
                     return storageResults
                 } else {
                     return nil
