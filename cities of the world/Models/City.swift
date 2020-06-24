@@ -46,4 +46,12 @@ class City: Cacheable {
             self.expiryDate = expDate
         }
     }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override class func indexedProperties() -> [String] {
+        return ["expiryDate", "query"]
+    }
 }
