@@ -76,4 +76,11 @@ class CacheManager {
             return nil
         }
     }
+    
+    public func setElements<T: Cacheable>(elements: Array<T>, objectType: T.Type) {
+        do {
+            let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
+            let storageRealm = try Realm(configuration: storageRealmConfiguration)
+        } catch _ as NSError {}
+    }
 }
