@@ -52,7 +52,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Panama",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60) // 5 minutes before -> Expired
+                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60), // 5 minutes before -> Expired
+                    page: nil
                 )
             )
         }
@@ -70,7 +71,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Panama",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(5 * 60) // 5 minutes after -> Not Expired
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
+                    page: nil
                 )
             )
             storageRealm.add(
@@ -84,7 +86,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Colombia",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(5 * 60) // 5 minutes after -> Not Expired
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
+                    page: nil
                 )
             )
         }
@@ -119,7 +122,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Panama",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(5 * 60) // 5 minutes before -> Expired
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes before -> Expired
+                    page: nil
                 )
             )
         }
@@ -137,7 +141,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Panama",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(5 * 60) // 5 minutes after -> Not Expired
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
+                    page: nil
                 )
             )
             storageRealm.add(
@@ -151,7 +156,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Colombia",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(5 * 60) // 5 minutes after -> Not Expired
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
+                    page: nil
                 )
             )
         }
@@ -185,7 +191,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Panama",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60) // 5 minutes before -> Expired
+                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60), // 5 minutes before -> Expired
+                    page: nil
                 )
             )
             storageRealm.add(
@@ -199,7 +206,8 @@ class CacheManagerTests: XCTestCase {
                     countryName: "Colombia",
                     continentName: "America",
                     query: query,
-                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60) // 5 minutes after -> Expired
+                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60), // 5 minutes after -> Expired
+                    page: nil
                 )
             )
         }
@@ -207,5 +215,63 @@ class CacheManagerTests: XCTestCase {
         // Validate
         let results = cacheManager.getResults(forQuery: query, objectType: City.self)
         XCTAssertNil(results)
+    }
+    
+    func testAddElements() throws {
+        try clearDatabase()
+        
+        let query = "panama"
+        
+        cacheManager.addElements(
+            elements: [
+                City(
+                    id: 1,
+                    name: "Panama",
+                    localName: "Panama",
+                    lat: nil,
+                    lng: nil,
+                    updatedAt: Date(),
+                    countryName: "Panama",
+                    continentName: "America",
+                    query: query,
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes before -> Valid
+                    page: nil
+                ),
+                City(
+                    id: 2,
+                    name: "Bogota",
+                    localName: "Bogota",
+                    lat: nil,
+                    lng: nil,
+                    updatedAt: Date(),
+                    countryName: "Colombia",
+                    continentName: "America",
+                    query: query,
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Valid
+                    page: nil
+                ),
+                City(
+                    id: 3,
+                    name: "Medellin",
+                    localName: "Medellin",
+                    lat: nil,
+                    lng: nil,
+                    updatedAt: Date(),
+                    countryName: "Colombia",
+                    continentName: "America",
+                    query: query,
+                    expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes before -> Valid
+                    page: nil
+                )
+            ],
+            objectType: City.self
+        )
+        
+        let results = cacheManager.getResults(forQuery: query, objectType: City.self)
+        XCTAssertNotNil(results)
+        
+        if let results = results {
+            XCTAssert(results.count == 3)
+        }
     }
 }
