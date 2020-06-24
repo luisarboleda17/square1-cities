@@ -48,7 +48,7 @@ class City: Cacheable, Decodable {
     }
     
     override class func indexedProperties() -> [String] {
-        return ["expiryDate", "query"]
+        return ["expiryDate", "query", "page"]
     }
     
     required init() {
@@ -65,7 +65,7 @@ class City: Cacheable, Decodable {
         do {
             self.lat = try cityContainer.decode(Double.self, forKey: CityKeys.lat)
             self.lng = try cityContainer.decode(Double.self, forKey: CityKeys.lng)
-        } catch let error as DecodingError {
+        } catch _ as DecodingError {
             self.lat = 0.0
             self.lng = 0.0
         }
