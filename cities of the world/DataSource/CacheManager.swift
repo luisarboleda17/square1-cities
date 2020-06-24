@@ -87,7 +87,7 @@ class CacheManager {
             
             // Add to both, in-memory and storage database
             try inMemoryRealm.write { elements.forEach { inMemoryRealm.add($0, update: Realm.UpdatePolicy.modified) } }
-            try storageRealm.write { elements.forEach { inMemoryRealm.add($0, update: Realm.UpdatePolicy.modified) } }
+            try storageRealm.write { elements.forEach { storageRealm.create(objectType, value: $0, update: Realm.UpdatePolicy.modified) } }
         } catch _ as NSError {}
     }
 }
