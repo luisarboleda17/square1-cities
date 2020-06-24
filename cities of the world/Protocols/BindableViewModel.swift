@@ -9,7 +9,7 @@
 import Foundation
 
 protocol BindableViewModel: class {
-    associatedtype ViewDelegate: BindableViewDelegate
+    associatedtype ViewDelegate
     
     var viewDelegate: ViewDelegate! { get set }
     
