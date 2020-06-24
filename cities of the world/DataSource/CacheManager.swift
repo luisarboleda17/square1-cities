@@ -77,10 +77,17 @@ class CacheManager {
         }
     }
     
-    public func setElements<T: Cacheable>(elements: Array<T>, objectType: T.Type) {
+    /**
+     Add elements to both databases
+     */
+    public func addElements<T: Cacheable>(elements: Array<T>, objectType: T.Type) {
         do {
             let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
             let storageRealm = try Realm(configuration: storageRealmConfiguration)
+            
+            // Add to both, in-memory and storage database
+            try inMemoryRealm.write { elements.forEach { inMemoryRealm.add($0, update: Realm.UpdatePolicy.modified) } }
+            try storageRealm.write { elements.forEach { inMemoryRealm.add($0, update: Realm.UpdatePolicy.modified) } }
         } catch _ as NSError {}
     }
 }
