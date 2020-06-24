@@ -21,8 +21,13 @@ class MainCoordinator: Coordinator {
     
     private func loadCitiesList() {
         OperationQueue.main.addOperation {
-            let viewController = CitiesListViewController.load(withXib: Xibs.citiesList, viewModel: CitiesListViewModel(coordinator: self))
-            self.navigationController.pushViewController(viewController, animated: true)
+            if let viewController = ViewModelLoader.loadView(
+                viewControllerType: CitiesListViewController.self,
+                xibName: Xibs.citiesList,
+                viewModel: CitiesListViewModel(coordinator: self)
+                ) {
+                self.navigationController.pushViewController(viewController, animated: true)
+            }
         }
     }
 }

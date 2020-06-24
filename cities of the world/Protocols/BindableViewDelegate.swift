@@ -21,18 +21,3 @@ extension BindableViewDelegate {
         self.viewModel = viewModel
     }
 }
-
-extension BindableViewDelegate where Self: UIViewController {
-    /**
-     Initialize view controller and bind view model
-     */
-    static func load<VM: BindableViewModel>(withXib xibName: String, viewModel: VM) -> Self where Self.ViewModel == VM {
-        let viewController = Self.load(xibName: xibName)
-        
-        viewController.bind(viewModel)
-        viewModel.bind(viewController as! VM.ViewDelegate)
-        
-        
-        return viewController
-    }
-}
