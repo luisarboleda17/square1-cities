@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BindableViewDelegate: class {
-    associatedtype ViewModel: BindableViewModel
+    associatedtype ViewModel
     
     var viewModel: ViewModel! { get set }
     
