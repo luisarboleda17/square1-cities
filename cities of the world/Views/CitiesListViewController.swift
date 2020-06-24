@@ -12,8 +12,8 @@ protocol CitiesListViewDelegateProtocol {
     
 }
 
-class CitiesListViewController<VM: CitiesListViewModelProtocol & BindableViewModel>: UIViewController & BindableViewDelegate & CitiesListViewDelegateProtocol {
-    typealias ViewModel = VM
+class CitiesListViewController: UIViewController & BindableViewDelegate & CitiesListViewDelegateProtocol {
+    typealias ViewModel = CitiesListViewModelProtocol
 
     internal var viewModel: ViewModel!
     private let VIEW_TITLE = "Cities of the world"
