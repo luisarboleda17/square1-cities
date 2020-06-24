@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CitiesListViewController" customModule="cities_of_the_world" customModuleProvider="target">
             <connections>
+                <outlet property="citiesTableView" destination="hWi-Yo-rUT" id="YnC-MP-Yma"/>
                 <outlet property="searchField" destination="xny-Br-meU" id="NRD-cY-O1m"/>
                 <outlet property="view" destination="iN0-l3-epB" id="7IG-dy-MKg"/>
             </connections>
@@ -19,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hWi-Yo-rUT">
-                    <rect key="frame" x="0.0" y="110" width="414" height="752"/>
+                    <rect key="frame" x="0.0" y="118" width="414" height="744"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type a city name" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xny-Br-meU">
@@ -33,7 +34,7 @@
             <constraints>
                 <constraint firstItem="xny-Br-meU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="9Qn-9g-Orl"/>
                 <constraint firstItem="hWi-Yo-rUT" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="AFE-th-Bfc"/>
-                <constraint firstItem="hWi-Yo-rUT" firstAttribute="top" secondItem="xny-Br-meU" secondAttribute="bottom" constant="8" id="NWu-e6-V2F"/>
+                <constraint firstItem="hWi-Yo-rUT" firstAttribute="top" secondItem="xny-Br-meU" secondAttribute="bottom" constant="16" id="NWu-e6-V2F"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xny-Br-meU" secondAttribute="trailing" constant="16" id="SCf-KR-5yW"/>
                 <constraint firstItem="hWi-Yo-rUT" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="XDf-Gt-dU2"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hWi-Yo-rUT" secondAttribute="bottom" id="dBd-wj-6cQ"/>
