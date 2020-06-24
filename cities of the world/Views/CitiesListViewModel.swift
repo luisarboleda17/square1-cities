@@ -13,5 +13,9 @@ protocol CitiesListViewModelProtocol {
 }
 
 class CitiesListViewModel: CitiesListViewModelProtocol {
+    private var coordinator: MainCoordinator!
     
+    required init(coordinator: MainCoordinator) {
+        self.coordinator = coordinator
+    }
 }
