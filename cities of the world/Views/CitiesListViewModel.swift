@@ -12,7 +12,10 @@ protocol CitiesListViewModelProtocol {
     
 }
 
-class CitiesListViewModel: CitiesListViewModelProtocol {
+class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
+    typealias ViewDelegate = CitiesListViewDelegateProtocol
+    
+    internal var viewDelegate: ViewDelegate!
     private var coordinator: MainCoordinator!
     
     required init(coordinator: MainCoordinator) {
