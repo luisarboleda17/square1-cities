@@ -60,9 +60,30 @@ class City: Cacheable, Decodable {
         self.id = try cityContainer.decode(Int.self, forKey: CityKeys.id)
         self.name = try cityContainer.decode(String.self, forKey: CityKeys.name)
         self.localName = try cityContainer.decode(String.self, forKey: CityKeys.localName)
-        self.lat = try cityContainer.decode(Double.self, forKey: CityKeys.lat)
-        self.lng = try cityContainer.decode(Double.self, forKey: CityKeys.lng)
-        self.updatedAt = try cityContainer.decode(Date.self, forKey: CityKeys.updatedAt)
+        
+        // Try to decode optional and especial attributes
+        do {
+            self.lat = try cityContainer.decode(Double.self, forKey: CityKeys.lat)
+            self.lng = try cityContainer.decode(Double.self, forKey: CityKeys.lng)
+        } catch let error as DecodingError {
+            self.lat = 0.0
+            self.lng = 0.0
+        }
+        
+        // Try to decode date attributes
+        do {
+            let dateformatter = DateFormatter()
+            let dateString = try cityContainer.decode(String.self, forKey: .updatedAt)
+            
+            dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            if let date = dateformatter.date(from: dateString) {
+                self.updatedAt = date
+            }
+        } catch let error {
+            print("Error decoding date")
+            print(error)
+        }
         
         let countryContainer = try cityContainer.nestedContainer(keyedBy: CountryKeys.self, forKey: CityKeys.country)
         self.countryName = try countryContainer.decode(String.self, forKey: CountryKeys.name)
