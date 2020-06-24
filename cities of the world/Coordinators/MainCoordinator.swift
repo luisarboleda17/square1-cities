@@ -16,10 +16,13 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        <#code#>
+        loadCitiesList()
     }
     
     private func loadCitiesList() {
-        
+        OperationQueue.main.addOperation {
+            let viewController = CitiesListViewController<CitiesListViewModel>.load(withXib: Xibs.citiesList, viewModel: CitiesListViewModel(coordinator: self))
+            self.navigationController.pushViewController(viewController, animated: true)
+        }
     }
 }
