@@ -6,10 +6,10 @@
 //  Copyright © 2020 Luis Arboleda. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol BindableViewDelegate: class {
-    associatedtype ViewModel
+    associatedtype ViewModel: BindableViewModel
     
     var viewModel: ViewModel! { get set }
     
