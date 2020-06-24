@@ -18,6 +18,7 @@ class City: Cacheable {
     @objc dynamic var updatedAt: Date?
     @objc dynamic var countryName: String!
     @objc dynamic var continentName: String!
+    @objc dynamic var page: Int = 0
     
     convenience init(
         id: Int,
@@ -29,7 +30,8 @@ class City: Cacheable {
         countryName: String,
         continentName: String,
         query: String,
-        expiryDate: Date?
+        expiryDate: Date?,
+        page: Int?
     ) {
         self.init()
         self.id = id
@@ -41,6 +43,7 @@ class City: Cacheable {
         self.countryName = countryName
         self.continentName = continentName
         self.query = query
+        self.page = page ?? 0
         
         if let expDate = expiryDate {
             self.expiryDate = expDate
