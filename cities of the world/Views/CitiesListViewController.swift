@@ -16,12 +16,25 @@ class CitiesListViewController<VM: CitiesListViewModelProtocol & BindableViewMod
     typealias ViewModel = VM
 
     internal var viewModel: ViewModel!
+    private let VIEW_TITLE = "Cities of the world"
+    
+    @IBOutlet weak var searchField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print("Initi the view")
-        // Do any additional setup after loading the view.
+        
+        configureView()
+    }
+    
+    private func configureView() {
+        configureNavigationBar()
+        searchField.setLeftIcon(imageName: "SearchIcon", verticalPadding: 12.0)
+        searchField.setSearchStyle()
+    }
+    
+    private func configureNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = VIEW_TITLE
     }
     
 
