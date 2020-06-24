@@ -31,7 +31,7 @@ class CacheManagerTests: XCTestCase {
         try storageRealm.write { storageRealm.deleteAll() }
     }
     
-    func testGetResultsInvalidMemoryCache() throws {
+    func testGetResultsInvalidMemoryAndStorageValid() throws {
         try clearDatabase()
         
         // Create realms
@@ -98,7 +98,7 @@ class CacheManagerTests: XCTestCase {
         }
     }
     
-    func testGetResultsValidMemoryCache() throws {
+    func testGetResultsValidMemory() throws {
         try clearDatabase()
         
         // Create realms
@@ -165,11 +165,47 @@ class CacheManagerTests: XCTestCase {
         }
     }
     
-    func testGetResultsInvalidStorageCache() throws {
+    func testGetResultsInvalidStorage() throws {
+        try clearDatabase()
         
-    }
-    
-    func testGetResultsValidStorageCache() throws {
+        // Create realms
+        let storageRealm = try Realm(configuration: storeConfiguration)
+        let query = "panama"
         
+        // Add storage default values
+        try storageRealm.write {
+            storageRealm.add(
+                City(
+                    id: 1,
+                    name: "Panama",
+                    localName: "Panama",
+                    lat: nil,
+                    lng: nil,
+                    updatedAt: Date(),
+                    countryName: "Panama",
+                    continentName: "America",
+                    query: query,
+                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60) // 5 minutes before -> Expired
+                )
+            )
+            storageRealm.add(
+                City(
+                    id: 2,
+                    name: "Bogota",
+                    localName: "Bogota",
+                    lat: nil,
+                    lng: nil,
+                    updatedAt: Date(),
+                    countryName: "Colombia",
+                    continentName: "America",
+                    query: query,
+                    expiryDate: Date().addingTimeInterval(-1 * 5 * 60) // 5 minutes after -> Expired
+                )
+            )
+        }
+        
+        // Validate
+        let results = cacheManager.getResults(forQuery: query, objectType: City.self)
+        XCTAssertNil(results)
     }
 }
