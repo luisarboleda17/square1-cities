@@ -38,6 +38,7 @@ class CacheManagerTests: XCTestCase {
         let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
         let storageRealm = try Realm(configuration: storeConfiguration)
         let query = "panama"
+        let page = 1
         
         // Add in memory default values
         try inMemoryRealm.write {
@@ -53,7 +54,7 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(-1 * 5 * 60), // 5 minutes before -> Expired
-                    page: nil
+                    page: page
                 )
             )
         }
@@ -72,7 +73,7 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
-                    page: nil
+                    page: page
                 )
             )
             storageRealm.add(
@@ -87,13 +88,13 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
-                    page: nil
+                    page: page
                 )
             )
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, objectType: City.self)
+        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
@@ -108,6 +109,7 @@ class CacheManagerTests: XCTestCase {
         let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
         let storageRealm = try Realm(configuration: storeConfiguration)
         let query = "panama"
+        let page = 1
         
         // Add in memory default values
         try inMemoryRealm.write {
@@ -123,7 +125,7 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes before -> Expired
-                    page: nil
+                    page: page
                 )
             )
         }
@@ -142,7 +144,7 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
-                    page: nil
+                    page: page
                 )
             )
             storageRealm.add(
@@ -157,13 +159,13 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Not Expired
-                    page: nil
+                    page: page
                 )
             )
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, objectType: City.self)
+        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
@@ -177,6 +179,7 @@ class CacheManagerTests: XCTestCase {
         // Create realms
         let storageRealm = try Realm(configuration: storeConfiguration)
         let query = "panama"
+        let page = 1
         
         // Add storage default values
         try storageRealm.write {
@@ -192,7 +195,7 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(-1 * 5 * 60), // 5 minutes before -> Expired
-                    page: nil
+                    page: page
                 )
             )
             storageRealm.add(
@@ -207,13 +210,13 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(-1 * 5 * 60), // 5 minutes after -> Expired
-                    page: nil
+                    page: page
                 )
             )
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, objectType: City.self)
+        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNil(results)
     }
     
@@ -221,6 +224,7 @@ class CacheManagerTests: XCTestCase {
         try clearDatabase()
         
         let query = "panama"
+        let page = 1
         
         cacheManager.addElements(
             elements: [
@@ -235,7 +239,7 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes before -> Valid
-                    page: nil
+                    page: page
                 ),
                 City(
                     id: 2,
@@ -248,7 +252,7 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes after -> Valid
-                    page: nil
+                    page: page
                 ),
                 City(
                     id: 3,
@@ -261,13 +265,13 @@ class CacheManagerTests: XCTestCase {
                     continentName: "America",
                     query: query,
                     expiryDate: Date().addingTimeInterval(5 * 60), // 5 minutes before -> Valid
-                    page: nil
+                    page: page
                 )
             ],
             objectType: City.self
         )
         
-        let results = cacheManager.getResults(forQuery: query, objectType: City.self)
+        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
