@@ -15,12 +15,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let cacheManager = CacheManager(
-            storageConfiguration: Realm.Configuration.defaultConfiguration,
-            inMemoryConfiguration: Realm.Configuration(inMemoryIdentifier: "cities")
+        let repository = CitiesRepository(
+            apiClient: ApiClient(),
+            cacheManager: CacheManager(
+                storageConfiguration: Realm.Configuration.defaultConfiguration,
+                inMemoryConfiguration: Realm.Configuration(inMemoryIdentifier: "cities-memory")
+            )
         )
-        
-        print(cacheManager.getResults(forQuery: "panama", objectType: Cacheable.self))
+        repository.search(withQuery: "col", page: 1) {
+            results in
+            print("RESULTS GOT")
+            print(results)
+        }
     }
 
 
