@@ -24,7 +24,16 @@ class CacheManagerTests: XCTestCase {
         self.cacheManager = CacheManager(storageConfiguration: storeConfiguration, inMemoryConfiguration: inMemoryConfiguration)
     }
     
+    private func clearDatabase() throws {
+        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
+        let storageRealm = try Realm(configuration: storeConfiguration)
+        try inMemoryRealm.write { inMemoryRealm.deleteAll() }
+        try storageRealm.write { storageRealm.deleteAll() }
+    }
+    
     func testGetResultsInvalidMemoryCache() throws {
+        try clearDatabase()
+        
         // Create realms
         let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
         let storageRealm = try Realm(configuration: storeConfiguration)
