@@ -19,6 +19,7 @@ class CitiesListViewController<VM: CitiesListViewModelProtocol & BindableViewMod
     private let VIEW_TITLE = "Cities of the world"
     
     @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var citiesTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +37,4 @@ class CitiesListViewController<VM: CitiesListViewModelProtocol & BindableViewMod
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = VIEW_TITLE
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
