@@ -9,16 +9,41 @@
 import UIKit
 
 class CityRow: UITableViewCell {
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var countryNameLabel: UILabel!
+    @IBOutlet weak var continentNameLabel: UILabel!
+    
+    var cityName: String? {
+        get {
+            return cityNameLabel.text
+        }
+        set(newCity) {
+            cityNameLabel.text = newCity
+        }
+    }
+    var countryName: String? {
+        get {
+            return countryNameLabel.text
+        }
+        set(newCountry) {
+            countryNameLabel.text = newCountry
+        }
+    }
+    
+    var continentName: String? {
+        get {
+            return continentNameLabel.text
+        }
+        set(newContinent) {
+            continentNameLabel.text = newContinent
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-    
 }
