@@ -9,11 +9,6 @@
 import UIKit
 
 extension CitiesListViewController {
-    @IBAction func searchEditingEnd(_ sender: UITextField) {
-        onSearchSubmitted(query: sender.text)
-    }
-    
-    
     @IBAction func searchSubmited(_ sender: UITextField) {
         onSearchSubmitted(query: sender.text)
         sender.endEditing(true)
