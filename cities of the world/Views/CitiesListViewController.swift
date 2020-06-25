@@ -56,6 +56,7 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
     
     @IBAction func searchSubmited(_ sender: UITextField) {
         onSearchSubmitted(query: sender.text)
+        sender.endEditing(true)
     }
     
     private func searchQueryIsValid(query: String) -> Bool {
