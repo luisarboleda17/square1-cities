@@ -14,17 +14,24 @@ extension CitiesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.fetchingCities ? 5 : viewModel.getCitiesCount() // If loading, show 5 elements
+        if (viewModel.fetchingCities) {
+            return 5 // 5 elements of loading
+        } else if (viewModel.queryExists) {
+            return viewModel.getCitiesCount()
+        } else {
+            return viewModel.getRecentQueriesCount()
+        }
     }
 }
 
 extension CitiesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if (viewModel.fetchingCities) {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cityLoadingCell, for: indexPath) as! CityLoadingCell
             return cell
-        } else {
+        } else if (viewModel.queryExists) {
+            
             let city = viewModel.getCity(forRow: indexPath.row)!
             let lastCity = indexPath.row == viewModel.getCitiesCount() - 1
             let cityRow = tableView.dequeueReusableCell(withIdentifier: Identifiers.cityCell, for: indexPath) as! CityRow
@@ -35,11 +42,17 @@ extension CitiesListViewController: UITableViewDelegate {
                 continentName: city.continentName,
                 separatorVisible: !lastCity
             )
+        } else {
+            
+            let recentQuery = viewModel.getRecentQuery(forRow: indexPath.row)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.recentQueryCell, for: indexPath) as! RecentQueryCell
+            cell.query = recentQuery
+            return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 68
+        return viewModel.queryExists ? 68 : 44
     }
     
     private func createCityCell(row: CityRow, cityName: String, countryName: String, continentName: String, separatorVisible: Bool) -> CityRow {
@@ -51,9 +64,18 @@ extension CitiesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastElement = viewModel.getCitiesCount() - 1
-        if indexPath.row == lastElement && !viewModel.fetchingCities {
-            viewModel.loadMoreCities()
+        if (!viewModel.fetchingCities && !viewModel.fetchingMoreCities && viewModel.shouldLoadMore) {
+            if (indexPath.row == viewModel.getCitiesCount() - 6) {
+                viewModel.loadMoreCities()
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (!viewModel.queryExists) {
+            let recentQuery = viewModel.getRecentQuery(forRow: indexPath.row)
+            self.searchField.text = recentQuery
+            searchSubmitted(query: recentQuery)
         }
     }
 }

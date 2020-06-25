@@ -10,6 +10,11 @@ import Foundation
 
 extension CitiesListViewController: CitiesListViewDelegateProtocol {
     internal func citiesChanged() {
-        self.citiesTableView.reloadData()
+        OperationQueue.main.addOperation {
+            self.citiesTableView.reloadData()
+            if (!self.viewModel.fetchingCities && self.viewModel.queryExists) {
+                self.recentQueriesLabel.text = "\(self.viewModel.getCitiesCount()) results"
+            }
+        }
     }
 }

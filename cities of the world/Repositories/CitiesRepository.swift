@@ -9,6 +9,11 @@
 import Foundation
 import RealmSwift
 
+enum CitiesSearchError {
+    case connectionError
+    case noResults
+}
+
 class CitiesRepository {
     private let apiClient: ApiClient!
     private let cacheManager: CacheManager!
@@ -20,10 +25,10 @@ class CitiesRepository {
         self.cacheManager = cacheManager
     }
     
-    public func search(withQuery query: String, page: Int, completion: @escaping (Results<City>?, Bool) -> Void) {
-        if let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self),
+    public func search(withQuery query: String, page: Int, completion: @escaping (Results<City>?, Bool, CitiesSearchError?) -> Void) {
+        if let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self),
             results.count > 0 {
-            completion(results, false)
+            completion(results, false, nil)
         } else {
             apiClient.searchCities(withQuery: query, page: page) {
                 response in
@@ -35,13 +40,25 @@ class CitiesRepository {
                         city.expiryDate = Date().addingTimeInterval(self.DEFAULT_CACHE_TTL)
                         return city
                     }
-                    self.cacheManager.addElements(elements: cities, objectType: City.self)
+                    self.cacheManager.addCacheableElements(elements: cities, objectType: City.self)
                     
-                    let results = self.cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
-                    completion(results, results == nil)
+                    guard let results = self.cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self) else {
+                        return completion(nil, response.data.pagination.lastPage <= page, .noResults)
+                    }
+                    
+                    completion(results, response.data.pagination.lastPage <= page, nil)
+                } else {
+                    completion(nil, false, CitiesSearchError.connectionError)
                 }
             }
         }
     }
     
+    public func getRecentQueries() -> Results<Query>? {
+        return cacheManager.getRecentQueries()
+    }
+    
+    public func addQuery(query: String) {
+        cacheManager.addQuery(query: query)
+    }
 }

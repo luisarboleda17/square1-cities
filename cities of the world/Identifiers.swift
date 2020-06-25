@@ -11,4 +11,5 @@ import Foundation
 struct Identifiers {
     static let cityCell = "cityCell"
     static let cityLoadingCell = "cityLoadingCell"
+    static let recentQueryCell = "recentQueryCell"
 }

@@ -9,9 +9,15 @@
 import UIKit
 
 extension CitiesListViewController {
-    @IBAction func searchSubmited(_ sender: UITextField) {
-        onSearchSubmitted(query: sender.text)
+    @IBAction func onSearchSubmited(_ sender: UITextField) {
+        searchSubmitted(query: sender.text)
         sender.endEditing(true)
+    }
+    
+    @IBAction func onEditingChanged(_ sender: UITextField) {
+        if sender.text == nil || sender.text == "" {
+            searchCleared()
+        }
     }
     
     private func searchQueryIsValid(query: String) -> Bool {
@@ -21,10 +27,24 @@ extension CitiesListViewController {
         return true
     }
     
-    private func onSearchSubmitted(query: String?) {
+    internal func searchSubmitted(query: String?) {
         guard let query = query, searchQueryIsValid(query: query) else {
-            return
+            return searchCleared()
         }
+        setViewForResults()
         viewModel.searchCities(query: query)
+    }
+    
+    internal func searchCleared() {
+        self.viewModel.clearSearch()
+        self.viewModel.loadRecentQueries()
+        setViewForRecentQueries()
+    }
+}
+
+extension CitiesListViewController: UITextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        searchCleared()
+        return true
     }
 }

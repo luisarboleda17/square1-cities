@@ -39,7 +39,7 @@ class CacheManager {
     /**
      Get cached cities for specific query
      */
-    public func getResults<T: Cacheable>(forQuery query: String, page: Int, objectType: T.Type) -> Results<T>? {
+    public func getCacheableResults<T: Cacheable>(forQuery query: String, page: Int, objectType: T.Type) -> Results<T>? {
         do {
             let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
             let validateCacheFilter = NSPredicate(format: "expiryDate > %@ AND query == %@ AND page == %d", NSDate(), query, page)
@@ -74,7 +74,7 @@ class CacheManager {
     /**
      Add elements to both databases
      */
-    public func addElements<T: Cacheable>(elements: Array<T>, objectType: T.Type) {
+    public func addCacheableElements<T: Cacheable>(elements: Array<T>, objectType: T.Type) {
         do {
             let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
             let storageRealm = try Realm(configuration: storageRealmConfiguration)
@@ -84,4 +84,53 @@ class CacheManager {
             try storageRealm.write { elements.forEach { storageRealm.create(objectType, value: $0, update: Realm.UpdatePolicy.modified) } }
         } catch _ as NSError {}
     }
+    
+    public func getRecentQueries() -> Results<Query>? {
+        do {
+            let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
+            
+            if let memoryQueries = getRecentQueries(forRealm: inMemoryRealm) {
+                return memoryQueries
+            } else {
+                let storageRealm = try Realm(configuration: storageRealmConfiguration)
+                if let storageQueries = getRecentQueries(forRealm: storageRealm) {
+                    try inMemoryRealm.write {inMemoryRealm.deleteAll()}
+                    try inMemoryRealm.write {storageQueries.forEach { inMemoryRealm.create(Query.self, value: $0, update: Realm.UpdatePolicy.modified) }}
+                    
+                    return getRecentQueries(forRealm: inMemoryRealm)
+                } else {
+                    return nil
+                }
+            }
+        } catch let error as NSError {
+            print(error)
+            return nil
+        }
+    }
+    
+    public func addQuery(query: String) {
+        do {
+            let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
+            let storageRealm = try Realm(configuration: storageRealmConfiguration)
+            
+            // Create query object
+            let queryObject = Query()
+            queryObject.query = query
+            queryObject.createdAt = Date()
+            
+            // Add to both, in-memory and storage database
+            try inMemoryRealm.write {inMemoryRealm.add(queryObject, update: .modified)}
+            try storageRealm.write {storageRealm.create(Query.self, value: queryObject, update: .modified)}
+        } catch _ as NSError {}
+    }
+    
+    private func getRecentQueries(forRealm realm: Realm) -> Results<Query>? {
+        let queries = realm.objects(Query.self).sorted(byKeyPath: "createdAt", ascending: false)
+        if (queries.count > 0) {
+            return queries
+        } else {
+            return nil
+        }
+    }
+    
 }
