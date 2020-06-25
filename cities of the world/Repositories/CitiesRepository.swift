@@ -22,15 +22,11 @@ class CitiesRepository {
     public func search(withQuery query: String, page: Int, completion: @escaping (Array<City>) -> Void) {
         if let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self),
             results.count > 0 {
-            print("Cargo de caché")
             completion(Array(results))
         } else {
             apiClient.searchCities(withQuery: query, page: page) {
                 response in
                 if let response = response {
-                    print(response)
-                    print("Cargo de internet")
-                    
                     let cities: Array<City> = response.data.items.map{
                         city in
                         city.page = page
@@ -40,8 +36,6 @@ class CitiesRepository {
                     }
                     self.cacheManager.addElements(elements: cities, objectType: City.self)
                     completion(cities)
-                } else {
-                    print("No hay nada en internet")
                 }
             }
         }
