@@ -26,6 +26,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     
     private var currentPage: Int = 1
     private var cities: Array<City> = []
+    private var query: String?
     
     required init(coordinator: MainCoordinator, citiesRepository: CitiesRepository) {
         self.coordinator = coordinator
@@ -33,6 +34,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     }
     
     func searchCities(query: String) {
+        self.query = query
         citiesRepository.search(withQuery: query, page: currentPage) {
             cities in
             self.cities = cities
@@ -49,6 +51,8 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     }
     
     func launchMapResults() {
-        coordinator.launchMap()
+        if let query = query {
+            coordinator.launchMap(forQuery: query)
+        }
     }
 }
