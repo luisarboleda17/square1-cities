@@ -17,10 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ab-US-u2n">
-                        <rect key="frame" x="16" y="12" width="288" height="21"/>
+                        <rect key="frame" x="16" y="12" width="222" height="21"/>
                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="V6t-E1-CUJ"/>
+                            <constraint firstAttribute="height" constant="21" id="v4k-Uy-wDk"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="53j-XS-o12">
@@ -29,16 +29,20 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="8ab-US-u2n" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="29f-mI-YzG"/>
-                    <constraint firstItem="53j-XS-o12" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="3h8-ue-Ney"/>
-                    <constraint firstAttribute="trailing" secondItem="8ab-US-u2n" secondAttribute="trailing" constant="16" id="BJN-wF-Yyo"/>
-                    <constraint firstAttribute="bottom" secondItem="53j-XS-o12" secondAttribute="bottom" constant="12" id="LPd-o0-JOv"/>
-                    <constraint firstAttribute="trailing" secondItem="53j-XS-o12" secondAttribute="trailing" constant="128" id="NI6-X8-gwU"/>
-                    <constraint firstItem="53j-XS-o12" firstAttribute="top" secondItem="8ab-US-u2n" secondAttribute="bottom" constant="6" id="ea1-AK-7W2"/>
-                    <constraint firstItem="8ab-US-u2n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="qvg-fm-2wl"/>
+                    <constraint firstAttribute="bottom" secondItem="53j-XS-o12" secondAttribute="bottom" constant="12" id="2am-Eg-LjA"/>
+                    <constraint firstItem="8ab-US-u2n" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="3MC-fz-ptu"/>
+                    <constraint firstItem="8ab-US-u2n" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.69375" id="3pW-j8-PwE"/>
+                    <constraint firstItem="53j-XS-o12" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.55" id="6xz-sx-T1o"/>
+                    <constraint firstItem="53j-XS-o12" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="DH7-pY-ZQX"/>
+                    <constraint firstItem="53j-XS-o12" firstAttribute="top" secondItem="8ab-US-u2n" secondAttribute="bottom" constant="6" id="TD6-JH-bCh"/>
+                    <constraint firstItem="8ab-US-u2n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="nfv-dJ-7bU"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="subtitleView" destination="53j-XS-o12" id="PNo-f1-XM3"/>
+                <outlet property="titleView" destination="8ab-US-u2n" id="9uh-d1-k43"/>
+            </connections>
             <point key="canvasLocation" x="139" y="127"/>
         </tableViewCell>
     </objects>

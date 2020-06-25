@@ -16,8 +16,8 @@ class CityLoadingCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        titleView.layer.cornerRadius = CGFloat(DEFAULT_BORDER_RADIUS)
-        subtitleView.layer.cornerRadius = CGFloat(DEFAULT_BORDER_RADIUS)
+        titleView.layer.cornerRadius = CGFloat(4.0)
+        subtitleView.layer.cornerRadius = CGFloat(4.0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
