@@ -19,19 +19,38 @@ class MainCoordinator: Coordinator {
         loadCitiesList()
     }
     
+    public func launchMap() {
+        loadCitiesMap()
+    }
+    
     private func loadCitiesList() {
         OperationQueue.main.addOperation {
-            let citiesRepository = CitiesRepository(
-                apiClient: ApiClient(),
-                cacheManager: CacheManager(storageConfiguration: DEFAULT_REALM_STORAGE_CCONFIGURATION, inMemoryConfiguration: DEFAULT_REALM_MEMORY_CONFIGURATION)
-            )
             if let viewController = ViewModelLoader.loadView(
                 viewControllerType: CitiesListViewController.self,
                 xibName: Xibs.citiesList,
-                viewModel: CitiesListViewModel(coordinator: self, citiesRepository: citiesRepository)
+                viewModel: CitiesListViewModel(coordinator: self, citiesRepository: self.createCitiesRepository())
                 ) {
                 self.navigationController.pushViewController(viewController, animated: true)
             }
         }
+    }
+    
+    private func loadCitiesMap() {
+        OperationQueue.main.addOperation {
+            if let viewController = ViewModelLoader.loadView(
+                viewControllerType: CitiesMapViewController.self,
+                xibName: Xibs.citiesMap,
+                viewModel: CitiesListViewModel(coordinator: self, citiesRepository: self.createCitiesRepository())
+                ) {
+                self.navigationController.pushViewController(viewController, animated: true)
+            }
+        }
+    }
+    
+    private func createCitiesRepository() -> CitiesRepository {
+        return CitiesRepository(
+            apiClient: ApiClient(),
+            cacheManager: CacheManager(storageConfiguration: DEFAULT_REALM_STORAGE_CCONFIGURATION, inMemoryConfiguration: DEFAULT_REALM_MEMORY_CONFIGURATION)
+        )
     }
 }
