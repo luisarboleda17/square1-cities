@@ -24,7 +24,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pyf-8H-IEd">
-                    <rect key="frame" x="16" y="60" width="382" height="42"/>
+                    <rect key="frame" x="16" y="60" width="382" height="46"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
@@ -36,7 +36,7 @@
                 <constraint firstItem="byH-0O-nxO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5xm-X6-9g4"/>
                 <constraint firstItem="Pyf-8H-IEd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="GuD-HM-fK5"/>
                 <constraint firstItem="byH-0O-nxO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="aG3-cT-AvW"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="width" secondItem="Pyf-8H-IEd" secondAttribute="height" multiplier="207:21" id="ibB-2C-yjI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="width" secondItem="Pyf-8H-IEd" secondAttribute="height" multiplier="207:23" id="ibB-2C-yjI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Pyf-8H-IEd" secondAttribute="trailing" constant="16" id="kT2-4w-90H"/>
                 <constraint firstAttribute="bottom" secondItem="byH-0O-nxO" secondAttribute="bottom" id="y8R-oh-fVQ"/>
             </constraints>
