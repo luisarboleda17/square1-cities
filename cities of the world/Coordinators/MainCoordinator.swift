@@ -40,7 +40,7 @@ class MainCoordinator: Coordinator {
             if let viewController = ViewModelLoader.loadView(
                 viewControllerType: CitiesMapViewController.self,
                 xibName: Xibs.citiesMap,
-                viewModel: CitiesListViewModel(coordinator: self, citiesRepository: self.createCitiesRepository())
+                viewModel: CitiesMapViewModel(coordinator: self, citiesRepository: self.createCitiesRepository())
                 ) {
                 self.navigationController.pushViewController(viewController, animated: true)
             }

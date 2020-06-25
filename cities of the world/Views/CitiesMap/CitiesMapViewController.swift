@@ -9,10 +9,14 @@
 import UIKit
 import GoogleMaps
 
-class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesListViewDelegateProtocol {
-    typealias ViewModel = CitiesListViewModelProtocol
+protocol CitiesMapViewDelegateProtocol {
     
-    var viewModel: CitiesListViewModelProtocol!
+}
+
+class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesMapViewDelegateProtocol {
+    typealias ViewModel = CitiesMapViewModelProtocol
+    
+    var viewModel: CitiesMapViewModelProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
