@@ -21,10 +21,14 @@ class MainCoordinator: Coordinator {
     
     private func loadCitiesList() {
         OperationQueue.main.addOperation {
+            let citiesRepository = CitiesRepository(
+                apiClient: ApiClient(),
+                cacheManager: CacheManager(storageConfiguration: DEFAULT_REALM_STORAGE_CCONFIGURATION, inMemoryConfiguration: DEFAULT_REALM_MEMORY_CONFIGURATION)
+            )
             if let viewController = ViewModelLoader.loadView(
                 viewControllerType: CitiesListViewController.self,
                 xibName: Xibs.citiesList,
-                viewModel: CitiesListViewModel(coordinator: self)
+                viewModel: CitiesListViewModel(coordinator: self, citiesRepository: citiesRepository)
                 ) {
                 self.navigationController.pushViewController(viewController, animated: true)
             }
