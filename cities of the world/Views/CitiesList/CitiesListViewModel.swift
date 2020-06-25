@@ -42,6 +42,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
         self.query = query
         self.currentPage = 1
         self.fetchingCities = true
+        self.viewDelegate.citiesChanged()
         citiesRepository.search(withQuery: query, page: currentPage) {
             (cities, error) in
             if let cities = cities {
@@ -58,6 +59,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
         if let query = query {
             self.currentPage += 1
             self.fetchingCities = true
+            self.viewDelegate.citiesChanged()
             citiesRepository.search(withQuery: query, page: currentPage) {
                 (cities, error) in
                 if let cities = cities {
