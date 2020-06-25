@@ -21,10 +21,20 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var citiesTableView: UITableView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func configureView() {
@@ -35,7 +45,6 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
     }
     
     private func configureNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         self.title = VIEW_TITLE
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "MapIcon"), style: .plain, target: self, action:  #selector(onMapIconTapped(sender:)))
     }

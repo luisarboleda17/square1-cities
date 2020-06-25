@@ -19,10 +19,24 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
     var viewModel: CitiesMapViewModelProtocol!
     
     @IBOutlet weak var mapsView: GMSMapView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.mapsLoaded()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func configureNavigationBar() {
+        
     }
     
     func citiesChanged() {
