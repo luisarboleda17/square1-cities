@@ -19,24 +19,11 @@ class CacheManager {
     }
     
     /**
-     Search in realm with a query
-     */
-    private func search<T: Cacheable>(withRealm realm: Realm, filter: NSPredicate, type: T.Type) -> Results<T> {
-        return realm.objects(type).filter(filter)
-    }
-    
-    /**
      Remove all elements that match the query
      */
     private func delete<T: Cacheable>(withRealm realm: Realm, forQuery query: String, objectType: T.Type) throws {
         try realm.write {
-            realm.delete(
-                search(
-                    withRealm: realm,
-                    filter: NSPredicate(format: "query == %@", query),
-                    type: objectType
-                )
-            )
+            realm.delete(realm.objects(objectType).filter(NSPredicate(format: "query == %@", query)))
         }
     }
     
@@ -55,19 +42,25 @@ class CacheManager {
     public func getResults<T: Cacheable>(forQuery query: String, page: Int, objectType: T.Type) -> Results<T>? {
         do {
             let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
-            let cacheFilter = NSPredicate(format: "expiryDate > %@ AND query == %@ AND page == %d", NSDate(), query, page)
-            let inMemoryResults = search(withRealm: inMemoryRealm, filter: cacheFilter, type: objectType)
+            let validateCacheFilter = NSPredicate(format: "expiryDate > %@ AND query == %@ AND page == %d", NSDate(), query, page)
+            let resultsFilter = NSPredicate(format: "query == %@ AND page <= %d", query, page)
+            let result = inMemoryRealm.objects(objectType).filter(validateCacheFilter)
             
-            if (inMemoryResults.count > 0) {
-                return inMemoryResults
+            // Valid cache
+            if (result.count > 0) {
+                return inMemoryRealm.objects(objectType).filter(resultsFilter)
             } else {
                 let storageRealm = try Realm(configuration: storageRealmConfiguration)
-                let storageResults = search(withRealm: storageRealm, filter: cacheFilter, type: objectType)
+                let storageResult = storageRealm.objects(objectType).filter(validateCacheFilter)
                 
-                if (storageResults.count > 0) {
-                    try delete(withRealm: inMemoryRealm, forQuery: query, objectType: objectType)
-                    try copy(results: storageResults, toRealm: inMemoryRealm, objectType: objectType)
-                    return storageResults
+                // Valid cache
+                if (storageResult.count > 0) {
+                    let validResult = storageRealm.objects(objectType).filter(resultsFilter)
+                    
+                    try delete(withRealm: inMemoryRealm, forQuery: query, objectType: objectType) // delete in memory for this query
+                    try copy(results: validResult, toRealm: inMemoryRealm, objectType: objectType) // copy
+                    
+                    return storageRealm.objects(objectType).filter(resultsFilter)
                 } else {
                     return nil
                 }
