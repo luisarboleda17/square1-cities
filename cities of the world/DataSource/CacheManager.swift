@@ -52,10 +52,10 @@ class CacheManager {
     /**
      Get cached cities for specific query
      */
-    public func getResults<T: Cacheable>(forQuery query: String, objectType: T.Type) -> Results<T>? {
+    public func getResults<T: Cacheable>(forQuery query: String, page: Int, objectType: T.Type) -> Results<T>? {
         do {
             let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
-            let cacheFilter = NSPredicate(format: "expiryDate > %@ AND query == %@", NSDate(), query)
+            let cacheFilter = NSPredicate(format: "expiryDate > %@ AND query == %@ AND page == %d", NSDate(), query, page)
             let inMemoryResults = search(withRealm: inMemoryRealm, filter: cacheFilter, type: objectType)
             
             if (inMemoryResults.count > 0) {
@@ -72,7 +72,8 @@ class CacheManager {
                     return nil
                 }
             }
-        } catch _ as NSError {
+        } catch let error as NSError {
+            print(error)
             return nil
         }
     }
