@@ -278,4 +278,86 @@ class CacheManagerTests: XCTestCase {
             XCTAssert(results.count == 3)
         }
     }
+    
+    func testRecentQueriesStorageValid() throws {
+        try clearDatabase()
+        
+        let storageRealm = try Realm(configuration: storeConfiguration)
+        
+        // Add in memory default values
+        try storageRealm.write {
+            for value in 1...5 {
+                storageRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+            }
+        }
+        
+        let recentQueries = cacheManager.getRecentQueries()
+        XCTAssertNotNil(recentQueries)
+        
+        if let queries = recentQueries {
+            XCTAssert(queries.count == 5)
+        }
+    }
+    
+    func testRecentQueriesMemoryValid() throws {
+        try clearDatabase()
+        
+        // Create realms
+        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
+        
+        // Add in memory default values
+        try inMemoryRealm.write {
+            for value in 1...5 {
+                storageRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+            }
+        }
+        
+        let recentQueries = cacheManager.getRecentQueries()
+        XCTAssertNotNil(results)
+        
+        if let queries = recentQueries {
+            XCTAssert(results.count == 5)
+        }
+    }
+    
+    func testAddRecentQuery() {
+        try clearDatabase()
+        
+        // Create realms
+        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
+        
+        // Add in memory default values
+        try inMemoryRealm.write {
+            for value in 1...3 {
+                storageRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+            }
+        }
+        
+        cacheManager.addQuery(query: "test Query")
+        
+        let recentQueries = cacheManager.getRecentQueries()
+        XCTAssertNotNil(results)
+        
+        if let queries = recentQueries {
+            XCTAssert(results.count == 4)
+        }
+    }
+    
+    func testAddRecentQueryOverflow() {
+        try clearDatabase()
+        
+        // Create realms
+        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
+        
+        for value in 1...15 {
+            cacheManager.addQuery(query: "Query \(value)")
+        }
+        
+        let recentQueries = cacheManager.getRecentQueries()
+        XCTAssertNotNil(results)
+        
+        if let queries = recentQueries {
+            XCTAssert(results.count == 7)
+        }
+    }
 }
