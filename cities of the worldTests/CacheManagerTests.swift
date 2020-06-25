@@ -8,7 +8,7 @@
 
 import XCTest
 import RealmSwift
-@testable import cities_of_the_world
+@testable import Cities_of_the_World
 
 class CacheManagerTests: XCTestCase {
     private var storeConfiguration: Realm.Configuration!

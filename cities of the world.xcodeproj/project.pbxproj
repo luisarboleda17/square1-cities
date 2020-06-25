@@ -889,7 +889,6 @@
 			baseConfigurationReference = AF874AB28667705C97B074FD /* Pods-cities of the worldTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MA5JRH6SQ4;
 				INFOPLIST_FILE = "cities of the worldTests/Info.plist";
@@ -903,7 +902,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cities of the world.app/cities of the world";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cities of the World.app/Cities of the World";
 			};
 			name = Debug;
 		};
@@ -912,7 +911,6 @@
 			baseConfigurationReference = 35410B3859B4766574DF00C5 /* Pods-cities of the worldTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MA5JRH6SQ4;
 				INFOPLIST_FILE = "cities of the worldTests/Info.plist";
@@ -926,7 +924,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cities of the world.app/cities of the world";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cities of the World.app/Cities of the World";
 			};
 			name = Release;
 		};

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import cities_of_the_world
+@testable import Cities_of_the_World
 
 class ApiTests: XCTestCase {
     let apiClient = ApiClient()
