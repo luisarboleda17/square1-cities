@@ -70,4 +70,12 @@ extension CitiesListViewController: UITableViewDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (!viewModel.queryExists) {
+            let recentQuery = viewModel.getRecentQuery(forRow: indexPath.row)
+            self.searchField.text = recentQuery
+            searchSubmitted(query: recentQuery)
+        }
+    }
 }

@@ -19,6 +19,8 @@ protocol CitiesListViewModelProtocol {
     func loadMoreCities()
     func clearSearch()
     
+    func loadRecentQueries()
+    
     func getCitiesCount() -> Int
     func getCity(forRow row: Int) -> City?
     
@@ -46,6 +48,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     private var cities: Results<City>?
     private var currentPage: Int = 1
     private var query: String?
+    private var recentQueries: Results<Query>?
     
     required init(coordinator: MainCoordinator, citiesRepository: CitiesRepository) {
         self.coordinator = coordinator
@@ -58,6 +61,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
         self.fetchingCities = true
         self.shouldLoadMore = true
         self.viewDelegate.citiesChanged()
+        self.citiesRepository.addQuery(query: query)
         self.citiesRepository.search(withQuery: query, page: self.currentPage) {
             cities, lastPage, error in
             
@@ -79,7 +83,6 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     
     func loadMoreCities() {
         if let query = query {
-            print("fetching more")
             self.currentPage += 1
             self.fetchingMoreCities = true
             self.shouldLoadMore = false
@@ -118,12 +121,18 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
         return cities?[row]
     }
     
+    func loadRecentQueries() {
+        if let recentQueries = citiesRepository.getRecentQueries() {
+            self.recentQueries = recentQueries
+        }
+    }
+    
     func getRecentQueriesCount() -> Int {
-        return 3
+        return self.recentQueries?.count ?? 0
     }
     
     func getRecentQuery(forRow row: Int) -> String {
-        return "Prueba"
+        return recentQueries?[row].query ?? ""
     }
     
     func launchMapResults() {

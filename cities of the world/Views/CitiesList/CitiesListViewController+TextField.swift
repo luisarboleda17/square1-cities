@@ -14,6 +14,12 @@ extension CitiesListViewController {
         sender.endEditing(true)
     }
     
+    @IBAction func onEditingChanged(_ sender: UITextField) {
+        if sender.text == nil || sender.text == "" {
+            searchCleared()
+        }
+    }
+    
     private func searchQueryIsValid(query: String) -> Bool {
         guard query.count > 0 else {
             return false
@@ -21,7 +27,7 @@ extension CitiesListViewController {
         return true
     }
     
-    private func searchSubmitted(query: String?) {
+    internal func searchSubmitted(query: String?) {
         guard let query = query, searchQueryIsValid(query: query) else {
             return searchCleared()
         }
@@ -31,13 +37,7 @@ extension CitiesListViewController {
     
     internal func searchCleared() {
         self.viewModel.clearSearch()
+        self.viewModel.loadRecentQueries()
         setViewForRecentQueries()
-    }
-}
-
-extension CitiesListViewController: UITextFieldDelegate {
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        searchCleared()
-        return true
     }
 }
