@@ -94,7 +94,7 @@ class CacheManagerTests: XCTestCase {
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
@@ -165,7 +165,7 @@ class CacheManagerTests: XCTestCase {
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
@@ -216,7 +216,7 @@ class CacheManagerTests: XCTestCase {
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNil(results)
     }
     
@@ -226,7 +226,7 @@ class CacheManagerTests: XCTestCase {
         let query = "panama"
         let page = 1
         
-        cacheManager.addElements(
+        cacheManager.addCacheableElements(
             elements: [
                 City(
                     id: 1,
@@ -271,7 +271,7 @@ class CacheManagerTests: XCTestCase {
             objectType: City.self
         )
         
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
@@ -308,19 +308,19 @@ class CacheManagerTests: XCTestCase {
         // Add in memory default values
         try inMemoryRealm.write {
             for value in 1...5 {
-                storageRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+                inMemoryRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
             }
         }
         
         let recentQueries = cacheManager.getRecentQueries()
-        XCTAssertNotNil(results)
+        XCTAssertNotNil(recentQueries)
         
         if let queries = recentQueries {
-            XCTAssert(results.count == 5)
+            XCTAssert(queries.count == 5)
         }
     }
     
-    func testAddRecentQuery() {
+    func testAddRecentQuery() throws {
         try clearDatabase()
         
         // Create realms
@@ -329,35 +329,32 @@ class CacheManagerTests: XCTestCase {
         // Add in memory default values
         try inMemoryRealm.write {
             for value in 1...3 {
-                storageRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+                inMemoryRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
             }
         }
         
         cacheManager.addQuery(query: "test Query")
         
         let recentQueries = cacheManager.getRecentQueries()
-        XCTAssertNotNil(results)
+        XCTAssertNotNil(recentQueries)
         
         if let queries = recentQueries {
-            XCTAssert(results.count == 4)
+            XCTAssert(queries.count == 4)
         }
     }
     
-    func testAddRecentQueryOverflow() {
+    func testAddRecentQueryOverflow() throws {
         try clearDatabase()
-        
-        // Create realms
-        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
         
         for value in 1...15 {
             cacheManager.addQuery(query: "Query \(value)")
         }
         
         let recentQueries = cacheManager.getRecentQueries()
-        XCTAssertNotNil(results)
+        XCTAssertNotNil(recentQueries)
         
         if let queries = recentQueries {
-            XCTAssert(results.count == 7)
+            XCTAssert(queries.count == 7)
         }
     }
 }
