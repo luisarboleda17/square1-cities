@@ -8,7 +8,7 @@
 
 import XCTest
 import RealmSwift
-@testable import cities_of_the_world
+@testable import Cities_of_the_World
 
 class CacheManagerTests: XCTestCase {
     private var storeConfiguration: Realm.Configuration!
@@ -94,7 +94,7 @@ class CacheManagerTests: XCTestCase {
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
@@ -165,7 +165,7 @@ class CacheManagerTests: XCTestCase {
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
@@ -216,7 +216,7 @@ class CacheManagerTests: XCTestCase {
         }
         
         // Validate
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNil(results)
     }
     
@@ -226,7 +226,7 @@ class CacheManagerTests: XCTestCase {
         let query = "panama"
         let page = 1
         
-        cacheManager.addElements(
+        cacheManager.addCacheableElements(
             elements: [
                 City(
                     id: 1,
@@ -271,11 +271,75 @@ class CacheManagerTests: XCTestCase {
             objectType: City.self
         )
         
-        let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+        let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self)
         XCTAssertNotNil(results)
         
         if let results = results {
             XCTAssert(results.count == 3)
+        }
+    }
+    
+    func testRecentQueriesStorageValid() throws {
+        try clearDatabase()
+        
+        let storageRealm = try Realm(configuration: storeConfiguration)
+        
+        // Add in memory default values
+        try storageRealm.write {
+            for value in 1...5 {
+                storageRealm.add(Query(value: ["Query \(value)", Date()]), update: .modified)
+            }
+        }
+        
+        let recentQueries = cacheManager.getRecentQueries()
+        XCTAssertNotNil(recentQueries)
+        
+        if let queries = recentQueries {
+            XCTAssert(queries.count == 5)
+        }
+    }
+    
+    func testRecentQueriesMemoryValid() throws {
+        try clearDatabase()
+        
+        // Create realms
+        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
+        
+        // Add in memory default values
+        try inMemoryRealm.write {
+            for value in 1...5 {
+                inMemoryRealm.add(Query(value: ["Query \(value)", Date()]), update: .modified)
+            }
+        }
+        
+        let recentQueries = cacheManager.getRecentQueries()
+        XCTAssertNotNil(recentQueries)
+        
+        if let queries = recentQueries {
+            XCTAssert(queries.count == 5)
+        }
+    }
+    
+    func testAddRecentQuery() throws {
+        try clearDatabase()
+        
+        // Create realms
+        let inMemoryRealm = try Realm(configuration: inMemoryConfiguration)
+        
+        // Add in memory default values
+        try inMemoryRealm.write {
+            for value in 1...3 {
+                inMemoryRealm.add(Query(value: ["Query \(value)", Date()]), update: .modified)
+            }
+        }
+        
+        cacheManager.addQuery(query: "test Query")
+        
+        let recentQueries = cacheManager.getRecentQueries()
+        XCTAssertNotNil(recentQueries)
+        
+        if let queries = recentQueries {
+            XCTAssert(queries.count == 4)
         }
     }
 }

@@ -903,7 +903,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cities of the world.app/cities of the world";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cities of the World.app/Cities of the World";
 			};
 			name = Debug;
 		};
@@ -926,7 +926,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cities of the world.app/cities of the world";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cities of the World.app/Cities of the World";
 			};
 			name = Release;
 		};
