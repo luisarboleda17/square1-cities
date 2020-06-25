@@ -31,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-    private func registerGoogleMaps() {
-        GMSServices.provideAPIKey("AIzaSyDdAlLD1ZX3KKPilAGGvLiaMn6VK_fs7fE")
+    @objc private func registerGoogleMaps() {
+        GMSServices.provideAPIKey(GOOGLE_MAPS_API_KEY)
     }
 }
 
