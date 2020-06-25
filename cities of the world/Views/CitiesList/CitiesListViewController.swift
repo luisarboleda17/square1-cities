@@ -25,7 +25,6 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
         super.viewDidLoad()
         
         configureView()
-        viewModel.searchCities(query: "Pan")
     }
     
     private func configureView() {
