@@ -7,5 +7,9 @@
 //
 
 import Foundation
+import RealmSwift
 
 let DEFAULT_BORDER_RADIUS = 8.0
+
+let DEFAULT_REALM_STORAGE_CCONFIGURATION = Realm.Configuration.defaultConfiguration
+let DEFAULT_REALM_MEMORY_CONFIGURATION = Realm.Configuration(inMemoryIdentifier: "cities-list")
