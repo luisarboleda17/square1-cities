@@ -13,6 +13,8 @@ protocol CitiesListViewModelProtocol {
     
     func getCitiesCount() -> Int
     func getCity(forRow row: Int) -> City
+    
+    func launchMapResults()
 }
 
 class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
@@ -44,5 +46,9 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     
     func getCity(forRow row: Int) -> City {
         return cities[row]
+    }
+    
+    func launchMapResults() {
+        coordinator.launchMap()
     }
 }

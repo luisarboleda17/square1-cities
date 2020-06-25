@@ -37,9 +37,14 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = VIEW_TITLE
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "MapIcon"), style: .plain, target: self, action:  #selector(onMapIconTapped(sender:)))
     }
     
     private func registerCityCell() {
         citiesTableView.register(UINib(nibName: Xibs.cityCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityCell)
+    }
+    
+    @objc private func onMapIconTapped(sender: AnyObject?) {
+        viewModel.launchMapResults()
     }
 }
