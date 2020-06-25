@@ -44,7 +44,31 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
         citiesTableView.register(UINib(nibName: Xibs.cityCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityCell)
     }
     
-    func citiesChanged() {
+    internal func citiesChanged() {
         self.citiesTableView.reloadData()
+    }
+    
+    
+    @IBAction func searchEditingEnd(_ sender: UITextField) {
+        onSearchSubmitted(query: sender.text)
+    }
+    
+    
+    @IBAction func searchSubmited(_ sender: UITextField) {
+        onSearchSubmitted(query: sender.text)
+    }
+    
+    private func searchQueryIsValid(query: String) -> Bool {
+        guard query.count > 0 else {
+            return false
+        }
+        return true
+    }
+    
+    private func onSearchSubmitted(query: String?) {
+        guard let query = query, searchQueryIsValid(query: query) else {
+            return
+        }
+        viewModel.searchCities(query: query)
     }
 }
