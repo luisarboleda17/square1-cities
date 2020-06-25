@@ -9,7 +9,10 @@
 import Foundation
 
 protocol CitiesListViewModelProtocol {
+    func searchCities(query: String)
     
+    func getCitiesCount() -> Int
+    func getCity(forRow row: Int) -> City
 }
 
 class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
@@ -17,8 +20,28 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     
     internal var viewDelegate: ViewDelegate!
     private var coordinator: MainCoordinator!
+    private var citiesRepository: CitiesRepository!
     
-    required init(coordinator: MainCoordinator) {
+    private var currentPage: Int = 1
+    private var cities: Array<City> = []
+    
+    required init(coordinator: MainCoordinator, citiesRepository: CitiesRepository) {
         self.coordinator = coordinator
+        self.citiesRepository = citiesRepository
+    }
+    
+    func searchCities(query: String) {
+        citiesRepository.search(withQuery: query, page: currentPage) {
+            cities in
+            self.cities = cities
+        }
+    }
+    
+    func getCitiesCount() -> Int {
+        return cities.count
+    }
+    
+    func getCity(forRow row: Int) -> City {
+        return cities[row]
     }
 }
