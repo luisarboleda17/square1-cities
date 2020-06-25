@@ -14,6 +14,16 @@ class MainCoordinator: Coordinator {
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        OperationQueue.main.addOperation {
+            self.navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            self.navigationController.navigationBar.shadowImage = UIImage()
+            self.navigationController.navigationBar.isTranslucent = true
+            self.navigationController.view.backgroundColor = .clear
+        }
     }
     
     func start() {
