@@ -41,3 +41,10 @@ extension CitiesListViewController {
         setViewForRecentQueries()
     }
 }
+
+extension CitiesListViewController: UITextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        searchCleared()
+        return true
+    }
+}

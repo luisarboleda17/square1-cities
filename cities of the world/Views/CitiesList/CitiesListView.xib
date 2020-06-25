@@ -36,6 +36,7 @@
                     <connections>
                         <action selector="onEditingChanged:" destination="-1" eventType="editingChanged" id="F6S-i7-NVf"/>
                         <action selector="onSearchSubmited:" destination="-1" eventType="primaryActionTriggered" id="dHq-fz-S7D"/>
+                        <outlet property="delegate" destination="-1" id="In0-Pz-nHG"/>
                     </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent searchs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPx-ou-yfg">
