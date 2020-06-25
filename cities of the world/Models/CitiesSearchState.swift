@@ -10,6 +10,6 @@ import Foundation
 
 struct CitiesSearchState {
     var page: Int!
-    var query: String!
+    var query: String?
     var results: Array<City>!
 }
