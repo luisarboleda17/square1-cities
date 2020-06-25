@@ -19,7 +19,8 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
     var viewModel: CitiesMapViewModelProtocol!
     
     @IBOutlet weak var mapsView: GMSMapView!
-    @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var toolbarView: UIView!
+    @IBOutlet weak var searchLabel: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -28,7 +29,7 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSearchToolbar()
+        configureToolbar()
         viewModel.mapsLoaded()
     }
     
@@ -37,10 +38,10 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func configureSearchToolbar() {
-        searchField.setLeftIcon(imageName: "SearchIcon", horizontalPadding: 16, verticalPadding: 12)
-        searchField.setSearchStyle()
-        searchField.text = viewModel.getQuery()
+    private func configureToolbar() {
+        toolbarView.layer.cornerRadius = CGFloat(DEFAULT_BORDER_RADIUS)
+        toolbarView.layer.backgroundColor = Colors.toolbarGray.cgColor
+        searchLabel.text = "Results for \(viewModel.getQuery())"
     }
     
     func citiesChanged() {

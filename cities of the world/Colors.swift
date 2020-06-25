@@ -10,4 +10,5 @@ import UIKit
 
 struct Colors {
     static let backgroundGrey = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1.0)
+    static let toolbarGray = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
 }
