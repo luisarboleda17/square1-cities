@@ -19,6 +19,7 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
     var viewModel: CitiesMapViewModelProtocol!
     
     @IBOutlet weak var mapsView: GMSMapView!
+    @IBOutlet weak var searchField: UITextField!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,6 +28,7 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSearchToolbar()
         viewModel.mapsLoaded()
     }
     
@@ -35,8 +37,10 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func configureNavigationBar() {
-        
+    private func configureSearchToolbar() {
+        searchField.setLeftIcon(imageName: "SearchIcon", horizontalPadding: 16, verticalPadding: 12)
+        searchField.setSearchStyle()
+        searchField.text = viewModel.getQuery()
     }
     
     func citiesChanged() {
@@ -47,8 +51,8 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
             }
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: city.lat, longitude: city.lng)
-            marker.title = "Sydney"
-            marker.snippet = "Australia"
+            marker.title = city.name
+            marker.snippet = city.countryName
             marker.map = self.mapsView
         }
     }

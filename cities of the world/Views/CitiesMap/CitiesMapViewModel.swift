@@ -11,6 +11,7 @@ import RealmSwift
 
 protocol CitiesMapViewModelProtocol {
     func mapsLoaded()
+    func getQuery() -> String
     func getCities() -> Results<City>
 }
 
@@ -36,6 +37,10 @@ class CitiesMapViewModel: BindableViewModel & CitiesMapViewModelProtocol {
     
     func mapsLoaded() {
         viewDelegate.citiesChanged()
+    }
+    
+    func getQuery() -> String {
+        return query
     }
     
     func getCities() -> Results<City> {

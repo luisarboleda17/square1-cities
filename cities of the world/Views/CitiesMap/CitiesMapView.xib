@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CitiesMapViewController" customModule="cities_of_the_world" customModuleProvider="target">
             <connections>
                 <outlet property="mapsView" destination="byH-0O-nxO" id="KaR-nd-c8K"/>
+                <outlet property="searchField" destination="Pyf-8H-IEd" id="Vgw-le-7hs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,12 +23,21 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pyf-8H-IEd">
+                    <rect key="frame" x="16" y="60" width="382" height="42"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
+                <constraint firstItem="Pyf-8H-IEd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="36p-qA-Ig7"/>
                 <constraint firstItem="byH-0O-nxO" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="3Fo-sK-6fd"/>
                 <constraint firstItem="byH-0O-nxO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5xm-X6-9g4"/>
+                <constraint firstItem="Pyf-8H-IEd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="GuD-HM-fK5"/>
                 <constraint firstItem="byH-0O-nxO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="aG3-cT-AvW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="width" secondItem="Pyf-8H-IEd" secondAttribute="height" multiplier="207:21" id="ibB-2C-yjI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Pyf-8H-IEd" secondAttribute="trailing" constant="16" id="kT2-4w-90H"/>
                 <constraint firstAttribute="bottom" secondItem="byH-0O-nxO" secondAttribute="bottom" id="y8R-oh-fVQ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
