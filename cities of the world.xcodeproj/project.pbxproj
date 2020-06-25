@@ -242,6 +242,7 @@
 		D2930D9724A3A84000593133 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2930DBE24A420BC00593133 /* New Group */,
 				D2930DB024A3D8D700593133 /* CitiesListView.xib */,
 				D2930DB224A3DE8100593133 /* CitiesListViewController.swift */,
 				D2930DBA24A40DAD00593133 /* CitiesListViewController+TableView.swift */,
@@ -266,6 +267,13 @@
 				D2930DA324A3AAA800593133 /* BindableViewModel.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D2930DBE24A420BC00593133 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		D2C12AEB24A24D2C00ED9B45 /* DataSource */ = {
