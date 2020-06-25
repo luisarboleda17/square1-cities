@@ -301,8 +301,8 @@
 		D2930DCC24A445E700593133 /* CitiesMap */ = {
 			isa = PBXGroup;
 			children = (
-				D2930DCD24A4460C00593133 /* CitiesMapViewController.swift */,
 				D2930DCE24A4460C00593133 /* CitiesMapView.xib */,
+				D2930DCD24A4460C00593133 /* CitiesMapViewController.swift */,
 			);
 			path = CitiesMap;
 			sourceTree = "<group>";
