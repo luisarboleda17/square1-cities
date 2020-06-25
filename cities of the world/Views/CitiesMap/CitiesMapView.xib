@@ -19,16 +19,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byH-0O-nxO" customClass="GMSMapView">
-                    <rect key="frame" x="0.0" y="5" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="byH-0O-nxO" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="3Vq-Mn-ngb"/>
-                <constraint firstItem="byH-0O-nxO" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="bkq-0i-HZz"/>
-                <constraint firstItem="byH-0O-nxO" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="d3n-bm-obg"/>
-                <constraint firstItem="byH-0O-nxO" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="we7-eB-IIc"/>
+                <constraint firstItem="byH-0O-nxO" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="3Fo-sK-6fd"/>
+                <constraint firstItem="byH-0O-nxO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5xm-X6-9g4"/>
+                <constraint firstItem="byH-0O-nxO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="aG3-cT-AvW"/>
+                <constraint firstAttribute="bottom" secondItem="byH-0O-nxO" secondAttribute="bottom" id="y8R-oh-fVQ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
