@@ -249,11 +249,8 @@
 		D2930D9724A3A84000593133 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2930DCB24A445B600593133 /* CitiesList */,
 				D2930DBE24A420BC00593133 /* CityRow */,
-				D2930DB024A3D8D700593133 /* CitiesListView.xib */,
-				D2930DB224A3DE8100593133 /* CitiesListViewController.swift */,
-				D2930DBA24A40DAD00593133 /* CitiesListViewController+TableView.swift */,
-				D2930DAC24A3B4ED00593133 /* CitiesListViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -283,6 +280,17 @@
 				D2930DC424A422D000593133 /* CityRow.xib */,
 			);
 			path = CityRow;
+			sourceTree = "<group>";
+		};
+		D2930DCB24A445B600593133 /* CitiesList */ = {
+			isa = PBXGroup;
+			children = (
+				D2930DB024A3D8D700593133 /* CitiesListView.xib */,
+				D2930DB224A3DE8100593133 /* CitiesListViewController.swift */,
+				D2930DBA24A40DAD00593133 /* CitiesListViewController+TableView.swift */,
+				D2930DAC24A3B4ED00593133 /* CitiesListViewModel.swift */,
+			);
+			path = CitiesList;
 			sourceTree = "<group>";
 		};
 		D2C12AEB24A24D2C00ED9B45 /* DataSource */ = {
