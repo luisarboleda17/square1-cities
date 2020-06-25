@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CitiesListViewDelegateProtocol {
-    
+    func citiesChanged()
 }
 
 class CitiesListViewController: UIViewController & BindableViewDelegate & CitiesListViewDelegateProtocol {
@@ -25,6 +25,7 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
         super.viewDidLoad()
         
         configureView()
+        viewModel.searchCities(query: "Pan")
     }
     
     private func configureView() {
@@ -41,5 +42,9 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
     
     private func registerCityCell() {
         citiesTableView.register(UINib(nibName: Xibs.cityCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityCell)
+    }
+    
+    func citiesChanged() {
+        self.citiesTableView.reloadData()
     }
 }

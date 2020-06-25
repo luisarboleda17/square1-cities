@@ -34,6 +34,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
         citiesRepository.search(withQuery: query, page: currentPage) {
             cities in
             self.cities = cities
+            self.viewDelegate.citiesChanged()
         }
     }
     
