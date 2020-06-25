@@ -46,6 +46,8 @@
 		D2930DDA24A4526100593133 /* CitiesMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DD924A4526100593133 /* CitiesMapViewModel.swift */; };
 		D2930DE024A483FE00593133 /* CityLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DDE24A483FE00593133 /* CityLoadingCell.swift */; };
 		D2930DE124A483FE00593133 /* CityLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2930DDF24A483FE00593133 /* CityLoadingCell.xib */; };
+		D2930DE524A4EE3800593133 /* RecentQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DE324A4EE3800593133 /* RecentQueryCell.swift */; };
+		D2930DE624A4EE3800593133 /* RecentQueryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2930DE424A4EE3800593133 /* RecentQueryCell.xib */; };
 		D2C12AED24A24D5A00ED9B45 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C12AEC24A24D5A00ED9B45 /* CacheManager.swift */; };
 		D2C12AF124A2630500ED9B45 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C12AF024A2630500ED9B45 /* DebugLog.swift */; };
 		D2C12AF224A2630500ED9B45 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C12AF024A2630500ED9B45 /* DebugLog.swift */; };
@@ -121,6 +123,8 @@
 		D2930DD924A4526100593133 /* CitiesMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesMapViewModel.swift; sourceTree = "<group>"; };
 		D2930DDE24A483FE00593133 /* CityLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityLoadingCell.swift; sourceTree = "<group>"; };
 		D2930DDF24A483FE00593133 /* CityLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityLoadingCell.xib; sourceTree = "<group>"; };
+		D2930DE324A4EE3800593133 /* RecentQueryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentQueryCell.swift; sourceTree = "<group>"; };
+		D2930DE424A4EE3800593133 /* RecentQueryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentQueryCell.xib; sourceTree = "<group>"; };
 		D2C12AEC24A24D5A00ED9B45 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		D2C12AF024A2630500ED9B45 /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		D59622DFB1A4658F43FDFD6F /* Pods_cities_of_the_worldTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cities_of_the_worldTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,10 +270,11 @@
 		D2930D9724A3A84000593133 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2930DE224A4EE2300593133 /* RecentQuery */,
+				D2930DBE24A420BC00593133 /* CityRow */,
 				D2930DDD24A483D500593133 /* CityLoadingRow */,
 				D2930DCC24A445E700593133 /* CitiesMap */,
 				D2930DCB24A445B600593133 /* CitiesList */,
-				D2930DBE24A420BC00593133 /* CityRow */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -331,6 +336,15 @@
 				D2930DDF24A483FE00593133 /* CityLoadingCell.xib */,
 			);
 			path = CityLoadingRow;
+			sourceTree = "<group>";
+		};
+		D2930DE224A4EE2300593133 /* RecentQuery */ = {
+			isa = PBXGroup;
+			children = (
+				D2930DE324A4EE3800593133 /* RecentQueryCell.swift */,
+				D2930DE424A4EE3800593133 /* RecentQueryCell.xib */,
+			);
+			path = RecentQuery;
 			sourceTree = "<group>";
 		};
 		D2C12AEB24A24D2C00ED9B45 /* DataSource */ = {
@@ -469,6 +483,7 @@
 				D2930DD024A4460C00593133 /* CitiesMapView.xib in Resources */,
 				D22D598924A0789B0090E5D1 /* LaunchScreen.storyboard in Resources */,
 				D22D598624A0789B0090E5D1 /* Assets.xcassets in Resources */,
+				D2930DE624A4EE3800593133 /* RecentQueryCell.xib in Resources */,
 				D2930DE124A483FE00593133 /* CityLoadingCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,6 +653,7 @@
 				D2C12AF124A2630500ED9B45 /* DebugLog.swift in Sources */,
 				D2930DA624A3AAB500593133 /* BindableViewDelegate.swift in Sources */,
 				D2C12AED24A24D5A00ED9B45 /* CacheManager.swift in Sources */,
+				D2930DE524A4EE3800593133 /* RecentQueryCell.swift in Sources */,
 				D2930DD624A44B4A00593133 /* CitiesListViewController+ViewDelegate.swift in Sources */,
 				D28E367624A26EB300D19033 /* Cacheable.swift in Sources */,
 				D2930DE024A483FE00593133 /* CityLoadingCell.swift in Sources */,

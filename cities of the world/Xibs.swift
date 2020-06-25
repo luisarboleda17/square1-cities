@@ -13,4 +13,5 @@ struct Xibs {
     static let citiesMap = "CitiesMapView"
     static let cityCell = "CityRow"
     static let cityLoadingCell = "CityLoadingCell"
+    static let recentQueryCell = "RecentQueryCell"
 }
