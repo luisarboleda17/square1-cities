@@ -10,5 +10,6 @@ import Foundation
 
 struct Xibs {
     static let citiesList = "CitiesListView"
+    static let citiesMap = "CitiesMapView"
     static let cityCell = "CityRow"
 }

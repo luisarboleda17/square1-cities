@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class CitiesRepository {
     private let apiClient: ApiClient!
@@ -19,10 +20,10 @@ class CitiesRepository {
         self.cacheManager = cacheManager
     }
     
-    public func search(withQuery query: String, page: Int, completion: @escaping (Array<City>) -> Void) {
+    public func search(withQuery query: String, page: Int, completion: @escaping (Results<City>?, Bool) -> Void) {
         if let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self),
             results.count > 0 {
-            completion(Array(results))
+            completion(results, false)
         } else {
             apiClient.searchCities(withQuery: query, page: page) {
                 response in
@@ -35,7 +36,9 @@ class CitiesRepository {
                         return city
                     }
                     self.cacheManager.addElements(elements: cities, objectType: City.self)
-                    completion(cities)
+                    
+                    let results = self.cacheManager.getResults(forQuery: query, page: page, objectType: City.self)
+                    completion(results, results == nil)
                 }
             }
         }

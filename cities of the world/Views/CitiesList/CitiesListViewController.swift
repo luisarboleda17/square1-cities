@@ -12,7 +12,7 @@ protocol CitiesListViewDelegateProtocol {
     func citiesChanged()
 }
 
-class CitiesListViewController: UIViewController & BindableViewDelegate & CitiesListViewDelegateProtocol {
+class CitiesListViewController: UIViewController & BindableViewDelegate {
     typealias ViewModel = CitiesListViewModelProtocol
 
     internal var viewModel: ViewModel!
@@ -21,11 +21,20 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var citiesTableView: UITableView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
-        viewModel.searchCities(query: "Pan")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func configureView() {
@@ -36,40 +45,15 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
     }
     
     private func configureNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         self.title = VIEW_TITLE
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "MapIcon"), style: .plain, target: self, action:  #selector(onMapIconTapped(sender:)))
     }
     
     private func registerCityCell() {
         citiesTableView.register(UINib(nibName: Xibs.cityCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityCell)
     }
     
-    internal func citiesChanged() {
-        self.citiesTableView.reloadData()
-    }
-    
-    
-    @IBAction func searchEditingEnd(_ sender: UITextField) {
-        onSearchSubmitted(query: sender.text)
-    }
-    
-    
-    @IBAction func searchSubmited(_ sender: UITextField) {
-        onSearchSubmitted(query: sender.text)
-        sender.endEditing(true)
-    }
-    
-    private func searchQueryIsValid(query: String) -> Bool {
-        guard query.count > 0 else {
-            return false
-        }
-        return true
-    }
-    
-    private func onSearchSubmitted(query: String?) {
-        guard let query = query, searchQueryIsValid(query: query) else {
-            return
-        }
-        viewModel.searchCities(query: query)
+    @objc private func onMapIconTapped(sender: AnyObject?) {
+        viewModel.launchMapResults()
     }
 }

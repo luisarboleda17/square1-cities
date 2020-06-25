@@ -6,6 +6,8 @@ target 'cities of the world' do
   
   pod 'RealmSwift'
   pod 'Alamofire', '~> 5.2'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
   target 'cities of the worldTests' do
     inherit! :search_paths
