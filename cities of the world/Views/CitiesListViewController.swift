@@ -29,6 +29,7 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
     
     private func configureView() {
         configureNavigationBar()
+        registerCityCell()
         searchField.setLeftIcon(imageName: "SearchIcon", verticalPadding: 12.0)
         searchField.setSearchStyle()
     }
@@ -36,5 +37,9 @@ class CitiesListViewController: UIViewController & BindableViewDelegate & Cities
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = VIEW_TITLE
+    }
+    
+    private func registerCityCell() {
+        citiesTableView.register(UINib(nibName: Xibs.cityCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityCell)
     }
 }
