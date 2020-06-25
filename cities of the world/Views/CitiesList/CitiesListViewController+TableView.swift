@@ -21,7 +21,9 @@ extension CitiesListViewController: UITableViewDataSource {
 extension CitiesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let city = viewModel.getCity(forRow: indexPath.row)
+        guard let city = viewModel.getCity(forRow: indexPath.row) else {
+            return UITableViewCell()
+        }
         let lastCity = indexPath.row == viewModel.getCitiesCount() - 1
         
         guard let cityRow = tableView.dequeueReusableCell(withIdentifier: Identifiers.cityCell, for: indexPath) as? CityRow else {

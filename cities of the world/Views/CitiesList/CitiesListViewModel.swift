@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol CitiesListViewModelProtocol {
     func searchCities(query: String)
     
     func getCitiesCount() -> Int
-    func getCity(forRow row: Int) -> City
+    func getCity(forRow row: Int) -> City?
     
     func launchMapResults()
 }
@@ -24,7 +25,9 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     private var coordinator: MainCoordinator!
     private var citiesRepository: CitiesRepository!
     
-    private var searchState: CitiesSearchState = CitiesSearchState(page: 1, query: nil, results: [])
+    private var cities: Results<City>?
+    private var currentPage: Int = 1
+    private var query: String?
     
     required init(coordinator: MainCoordinator, citiesRepository: CitiesRepository) {
         self.coordinator = coordinator
@@ -32,23 +35,29 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     }
     
     func searchCities(query: String) {
-        self.searchState.query = query
-        citiesRepository.search(withQuery: query, page: searchState.page) {
-            cities in
-            self.searchState.results.append(contentsOf: cities)
-            self.viewDelegate.citiesChanged()
+        self.query = query
+        citiesRepository.search(withQuery: query, page: currentPage) {
+            (cities, error) in
+            if let cities = cities {
+                self.cities = cities
+                self.viewDelegate.citiesChanged()
+            } else {
+                print("Error getting results")
+            }
         }
     }
     
     func getCitiesCount() -> Int {
-        return searchState.results.count
+        return cities?.count ?? 0
     }
     
-    func getCity(forRow row: Int) -> City {
-        return searchState.results[row]
+    func getCity(forRow row: Int) -> City? {
+        return cities?[row]
     }
     
     func launchMapResults() {
-        coordinator.launchMap(withSearchState: searchState)
+        if let query = query, let cities = cities {
+            coordinator.launchMap(results: cities, query: query, page: currentPage)
+        }
     }
 }

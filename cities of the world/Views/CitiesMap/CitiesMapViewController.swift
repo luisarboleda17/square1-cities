@@ -22,15 +22,20 @@ class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesM
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.mapsLoaded()
     }
     
     func citiesChanged() {
-        // Creates a marker in the center of the map.
-        /*
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView*/
+        viewModel.getCities().forEach {
+            city in
+            guard city.lat != 0, city.lng != 0 else {
+                return
+            }
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: city.lat, longitude: city.lng)
+            marker.title = "Sydney"
+            marker.snippet = "Australia"
+            marker.map = self.mapsView
+        }
     }
 }

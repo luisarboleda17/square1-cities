@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MainCoordinator: Coordinator {
     internal var navigationController: UINavigationController!
@@ -19,8 +20,8 @@ class MainCoordinator: Coordinator {
         loadCitiesList()
     }
     
-    public func launchMap(withSearchState searchState: CitiesSearchState) {
-        loadCitiesMap(withSearchState: searchState)
+    public func launchMap(results: Results<City>, query: String, page: Int) {
+        loadCitiesMap(results: results, query: query, page: page)
     }
     
     private func loadCitiesList() {
@@ -35,12 +36,19 @@ class MainCoordinator: Coordinator {
         }
     }
     
-    private func loadCitiesMap(withSearchState state: CitiesSearchState) {
+    private func loadCitiesMap(results: Results<City>, query: String, page: Int) {
         OperationQueue.main.addOperation {
+            let viewModel = CitiesMapViewModel(
+                coordinator: self,
+                citiesRepository: self.createCitiesRepository(),
+                cities: results,
+                query: query,
+                currentPage: page
+            )
             if let viewController = ViewModelLoader.loadView(
                 viewControllerType: CitiesMapViewController.self,
                 xibName: Xibs.citiesMap,
-                viewModel: CitiesMapViewModel(coordinator: self, citiesRepository: self.createCitiesRepository(), searchState: state)
+                viewModel: viewModel
                 ) {
                 self.navigationController.pushViewController(viewController, animated: true)
             }
