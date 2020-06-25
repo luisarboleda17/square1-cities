@@ -44,6 +44,8 @@
 		D2930DD624A44B4A00593133 /* CitiesListViewController+ViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DD524A44B4A00593133 /* CitiesListViewController+ViewDelegate.swift */; };
 		D2930DD824A4519700593133 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DD724A4519700593133 /* APIKeys.swift */; };
 		D2930DDA24A4526100593133 /* CitiesMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DD924A4526100593133 /* CitiesMapViewModel.swift */; };
+		D2930DE024A483FE00593133 /* CityLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DDE24A483FE00593133 /* CityLoadingCell.swift */; };
+		D2930DE124A483FE00593133 /* CityLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2930DDF24A483FE00593133 /* CityLoadingCell.xib */; };
 		D2C12AED24A24D5A00ED9B45 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C12AEC24A24D5A00ED9B45 /* CacheManager.swift */; };
 		D2C12AF124A2630500ED9B45 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C12AF024A2630500ED9B45 /* DebugLog.swift */; };
 		D2C12AF224A2630500ED9B45 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C12AF024A2630500ED9B45 /* DebugLog.swift */; };
@@ -75,7 +77,7 @@
 		35410B3859B4766574DF00C5 /* Pods-cities of the worldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cities of the worldTests.release.xcconfig"; path = "Target Support Files/Pods-cities of the worldTests/Pods-cities of the worldTests.release.xcconfig"; sourceTree = "<group>"; };
 		A7F9082699CA441DEC02B62B /* Pods-cities of the world-cities of the worldUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cities of the world-cities of the worldUITests.debug.xcconfig"; path = "Target Support Files/Pods-cities of the world-cities of the worldUITests/Pods-cities of the world-cities of the worldUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AF874AB28667705C97B074FD /* Pods-cities of the worldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cities of the worldTests.debug.xcconfig"; path = "Target Support Files/Pods-cities of the worldTests/Pods-cities of the worldTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D22D597924A078990090E5D1 /* cities of the world.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cities of the world.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D22D597924A078990090E5D1 /* Cities of the World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cities of the World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22D597C24A078990090E5D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D22D597E24A078990090E5D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D22D598524A0789B0090E5D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -117,6 +119,8 @@
 		D2930DD524A44B4A00593133 /* CitiesListViewController+ViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CitiesListViewController+ViewDelegate.swift"; sourceTree = "<group>"; };
 		D2930DD724A4519700593133 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		D2930DD924A4526100593133 /* CitiesMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesMapViewModel.swift; sourceTree = "<group>"; };
+		D2930DDE24A483FE00593133 /* CityLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityLoadingCell.swift; sourceTree = "<group>"; };
+		D2930DDF24A483FE00593133 /* CityLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityLoadingCell.xib; sourceTree = "<group>"; };
 		D2C12AEC24A24D5A00ED9B45 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		D2C12AF024A2630500ED9B45 /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		D59622DFB1A4658F43FDFD6F /* Pods_cities_of_the_worldTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cities_of_the_worldTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,7 +194,7 @@
 		D22D597A24A078990090E5D1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D22D597924A078990090E5D1 /* cities of the world.app */,
+				D22D597924A078990090E5D1 /* Cities of the World.app */,
 				D22D598F24A0789B0090E5D1 /* cities of the worldTests.xctest */,
 				D22D599A24A0789B0090E5D1 /* cities of the worldUITests.xctest */,
 			);
@@ -262,6 +266,7 @@
 		D2930D9724A3A84000593133 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2930DDD24A483D500593133 /* CityLoadingRow */,
 				D2930DCC24A445E700593133 /* CitiesMap */,
 				D2930DCB24A445B600593133 /* CitiesList */,
 				D2930DBE24A420BC00593133 /* CityRow */,
@@ -319,6 +324,15 @@
 			path = CitiesMap;
 			sourceTree = "<group>";
 		};
+		D2930DDD24A483D500593133 /* CityLoadingRow */ = {
+			isa = PBXGroup;
+			children = (
+				D2930DDE24A483FE00593133 /* CityLoadingCell.swift */,
+				D2930DDF24A483FE00593133 /* CityLoadingCell.xib */,
+			);
+			path = CityLoadingRow;
+			sourceTree = "<group>";
+		};
 		D2C12AEB24A24D2C00ED9B45 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,7 +373,7 @@
 			);
 			name = "cities of the world";
 			productName = "cities of the world";
-			productReference = D22D597924A078990090E5D1 /* cities of the world.app */;
+			productReference = D22D597924A078990090E5D1 /* Cities of the World.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D22D598E24A0789B0090E5D1 /* cities of the worldTests */ = {
@@ -455,6 +469,7 @@
 				D2930DD024A4460C00593133 /* CitiesMapView.xib in Resources */,
 				D22D598924A0789B0090E5D1 /* LaunchScreen.storyboard in Resources */,
 				D22D598624A0789B0090E5D1 /* Assets.xcassets in Resources */,
+				D2930DE124A483FE00593133 /* CityLoadingCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +640,7 @@
 				D2C12AED24A24D5A00ED9B45 /* CacheManager.swift in Sources */,
 				D2930DD624A44B4A00593133 /* CitiesListViewController+ViewDelegate.swift in Sources */,
 				D28E367624A26EB300D19033 /* Cacheable.swift in Sources */,
+				D2930DE024A483FE00593133 /* CityLoadingCell.swift in Sources */,
 				D28E368724A30A9300D19033 /* CitiesRepository.swift in Sources */,
 				D2930DA424A3AAA800593133 /* BindableViewModel.swift in Sources */,
 				D28E367B24A2DBB100D19033 /* ApiClient.swift in Sources */,
@@ -823,7 +839,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.larboleda.square1.cities-of-the-world";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Cities of the World";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -842,7 +858,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.larboleda.square1.cities-of-the-world";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Cities of the World";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

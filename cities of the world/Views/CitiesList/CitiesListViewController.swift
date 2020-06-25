@@ -51,6 +51,7 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
     
     private func registerCityCell() {
         citiesTableView.register(UINib(nibName: Xibs.cityCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityCell)
+        citiesTableView.register(UINib(nibName: Xibs.cityLoadingCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityLoadingCell)
     }
     
     @objc private func onMapIconTapped(sender: AnyObject?) {
