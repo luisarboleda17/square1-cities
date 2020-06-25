@@ -12,6 +12,7 @@ class CityRow: UITableViewCell {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var continentNameLabel: UILabel!
+    @IBOutlet weak var separatorView: UIView!
     
     var cityName: String? {
         get {
@@ -36,6 +37,15 @@ class CityRow: UITableViewCell {
         }
         set(newContinent) {
             continentNameLabel.text = newContinent
+        }
+    }
+    
+    var separatorVisible: Bool {
+        get {
+            return !separatorView.isHidden
+        }
+        set(visible) {
+            separatorView.isHidden = !visible
         }
     }
 
