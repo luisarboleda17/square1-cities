@@ -9,7 +9,10 @@
 import UIKit
 import GoogleMaps
 
-class CitiesMapViewController: UIViewController {
+class CitiesMapViewController: UIViewController & BindableViewDelegate & CitiesListViewDelegateProtocol {
+    typealias ViewModel = CitiesListViewModelProtocol
+    
+    var viewModel: CitiesListViewModelProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +30,10 @@ class CitiesMapViewController: UIViewController {
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = mapView
+    }
+    
+    func citiesChanged() {
+        
     }
 
 
