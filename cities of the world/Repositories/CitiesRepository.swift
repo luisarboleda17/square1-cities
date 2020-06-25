@@ -26,7 +26,7 @@ class CitiesRepository {
     }
     
     public func search(withQuery query: String, page: Int, completion: @escaping (Results<City>?, Bool, CitiesSearchError?) -> Void) {
-        if let results = cacheManager.getResults(forQuery: query, page: page, objectType: City.self),
+        if let results = cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self),
             results.count > 0 {
             completion(results, false, nil)
         } else {
@@ -40,9 +40,9 @@ class CitiesRepository {
                         city.expiryDate = Date().addingTimeInterval(self.DEFAULT_CACHE_TTL)
                         return city
                     }
-                    self.cacheManager.addElements(elements: cities, objectType: City.self)
+                    self.cacheManager.addCacheableElements(elements: cities, objectType: City.self)
                     
-                    guard let results = self.cacheManager.getResults(forQuery: query, page: page, objectType: City.self) else {
+                    guard let results = self.cacheManager.getCacheableResults(forQuery: query, page: page, objectType: City.self) else {
                         return completion(nil, response.data.pagination.lastPage <= page, .noResults)
                     }
                     
@@ -54,4 +54,7 @@ class CitiesRepository {
         }
     }
     
+    public func getRecentQueries() -> Results<Query>? {
+        return cacheManager.getRecentQueries()
+    }
 }

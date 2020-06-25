@@ -11,8 +11,13 @@ import RealmSwift
 
 class Query: Object {
     @objc dynamic var query: String!
+    @objc dynamic var createdAt: Date = Date()
     
     override class func primaryKey() -> String? {
         return "query"
+    }
+    
+    override class func indexedProperties() -> [String] {
+        return ["createdAt"]
     }
 }
