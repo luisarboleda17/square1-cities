@@ -33,7 +33,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits" returnKeyType="search"/>
                     <connections>
-                        <action selector="searchEditingEnd:" destination="-1" eventType="editingDidEnd" id="odW-Pv-k1C"/>
                         <action selector="searchSubmited:" destination="-1" eventType="primaryActionTriggered" id="pho-Dq-jsO"/>
                     </connections>
                 </textField>

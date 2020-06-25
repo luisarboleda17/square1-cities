@@ -45,4 +45,11 @@ extension CitiesListViewController: UITableViewDelegate {
         row.separatorVisible = separatorVisible
         return row
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastElement = viewModel.getCitiesCount() - 1
+        if indexPath.row == lastElement && !viewModel.fetchingCities {
+            viewModel.loadMoreCities()
+        }
+    }
 }

@@ -10,7 +10,10 @@ import Foundation
 import RealmSwift
 
 protocol CitiesListViewModelProtocol {
+    var fetchingCities: Bool { get }
+    
     func searchCities(query: String)
+    func loadMoreCities()
     
     func getCitiesCount() -> Int
     func getCity(forRow row: Int) -> City?
@@ -25,6 +28,7 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     private var coordinator: MainCoordinator!
     private var citiesRepository: CitiesRepository!
     
+    var fetchingCities: Bool = false
     private var cities: Results<City>?
     private var currentPage: Int = 1
     private var query: String?
@@ -36,13 +40,33 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     
     func searchCities(query: String) {
         self.query = query
+        self.currentPage = 1
+        self.fetchingCities = true
         citiesRepository.search(withQuery: query, page: currentPage) {
             (cities, error) in
             if let cities = cities {
                 self.cities = cities
+                self.fetchingCities = false
                 self.viewDelegate.citiesChanged()
             } else {
                 print("Error getting results")
+            }
+        }
+    }
+    
+    func loadMoreCities() {
+        if let query = query {
+            self.currentPage += 1
+            self.fetchingCities = true
+            citiesRepository.search(withQuery: query, page: currentPage) {
+                (cities, error) in
+                if let cities = cities {
+                    self.cities = cities
+                    self.fetchingCities = false
+                    self.viewDelegate.citiesChanged()
+                } else {
+                    print("Error getting results")
+                }
             }
         }
     }

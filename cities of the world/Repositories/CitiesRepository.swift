@@ -28,7 +28,7 @@ class CitiesRepository {
             apiClient.searchCities(withQuery: query, page: page) {
                 response in
                 if let response = response {
-                    let cities: Array<City> = response.data.items.map{
+                    let cities: Array<City> = response.data.items.map {
                         city in
                         city.page = page
                         city.query = query
