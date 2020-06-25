@@ -287,7 +287,7 @@ class CacheManagerTests: XCTestCase {
         // Add in memory default values
         try storageRealm.write {
             for value in 1...5 {
-                storageRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+                storageRealm.add(Query(value: ["Query \(value)", Date()]), update: .modified)
             }
         }
         
@@ -308,7 +308,7 @@ class CacheManagerTests: XCTestCase {
         // Add in memory default values
         try inMemoryRealm.write {
             for value in 1...5 {
-                inMemoryRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+                inMemoryRealm.add(Query(value: ["Query \(value)", Date()]), update: .modified)
             }
         }
         
@@ -329,7 +329,7 @@ class CacheManagerTests: XCTestCase {
         // Add in memory default values
         try inMemoryRealm.write {
             for value in 1...3 {
-                inMemoryRealm.add(Query(value: ["Query \(value)", 5]), update: .modified)
+                inMemoryRealm.add(Query(value: ["Query \(value)", Date()]), update: .modified)
             }
         }
         
