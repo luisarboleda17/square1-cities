@@ -9,7 +9,6 @@
 import Foundation
 
 protocol CitiesMapViewModelProtocol {
-    func loadCities()
 }
 
 class CitiesMapViewModel: BindableViewModel & CitiesMapViewModelProtocol {
@@ -19,21 +18,12 @@ class CitiesMapViewModel: BindableViewModel & CitiesMapViewModelProtocol {
     private var coordinator: MainCoordinator!
     private var citiesRepository: CitiesRepository!
     
-    private var currentPage: Int = 1
-    private var cities: Array<City> = []
-    private var query: String!
+    private var searchState: CitiesSearchState!
     
-    required init(coordinator: MainCoordinator, citiesRepository: CitiesRepository, query: String) {
+    required init(coordinator: MainCoordinator, citiesRepository: CitiesRepository, searchState: CitiesSearchState) {
         self.coordinator = coordinator
         self.citiesRepository = citiesRepository
-        self.query = query
+        self.searchState = searchState
     }
     
-    func loadCities() {
-        citiesRepository.search(withQuery: self.query, page: currentPage) {
-            cities in
-            self.cities = cities
-            self.viewDelegate.citiesChanged()
-        }
-    }
 }

@@ -49,8 +49,6 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     }
     
     func launchMapResults() {
-        if let query = searchState.query {
-            coordinator.launchMap(forQuery: query)
-        }
+        coordinator.launchMap(withSearchState: searchState)
     }
 }

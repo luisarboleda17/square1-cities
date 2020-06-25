@@ -19,8 +19,8 @@ class MainCoordinator: Coordinator {
         loadCitiesList()
     }
     
-    public func launchMap(forQuery query: String) {
-        loadCitiesMap(forQuery: query)
+    public func launchMap(withSearchState searchState: CitiesSearchState) {
+        loadCitiesMap(withSearchState: searchState)
     }
     
     private func loadCitiesList() {
@@ -35,12 +35,12 @@ class MainCoordinator: Coordinator {
         }
     }
     
-    private func loadCitiesMap(forQuery query: String) {
+    private func loadCitiesMap(withSearchState state: CitiesSearchState) {
         OperationQueue.main.addOperation {
             if let viewController = ViewModelLoader.loadView(
                 viewControllerType: CitiesMapViewController.self,
                 xibName: Xibs.citiesMap,
-                viewModel: CitiesMapViewModel(coordinator: self, citiesRepository: self.createCitiesRepository(), query: query)
+                viewModel: CitiesMapViewModel(coordinator: self, citiesRepository: self.createCitiesRepository(), searchState: state)
                 ) {
                 self.navigationController.pushViewController(viewController, animated: true)
             }
