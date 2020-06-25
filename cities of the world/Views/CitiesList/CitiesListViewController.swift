@@ -20,6 +20,7 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
     
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var citiesTableView: UITableView!
+    @IBOutlet weak var recentQueriesLabel: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -52,9 +53,20 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
     private func registerCityCell() {
         citiesTableView.register(UINib(nibName: Xibs.cityCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityCell)
         citiesTableView.register(UINib(nibName: Xibs.cityLoadingCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.cityLoadingCell)
+        citiesTableView.register(UINib(nibName: Xibs.recentQueryCell, bundle: Bundle.main), forCellReuseIdentifier: Identifiers.recentQueryCell)
     }
     
     @objc private func onMapIconTapped(sender: AnyObject?) {
         viewModel.launchMapResults()
+    }
+    
+    internal func setViewForResults() {
+        citiesTableView.allowsSelection = false
+        recentQueriesLabel.text = "Results"
+    }
+    
+    internal func setViewForRecentQueries() {
+        citiesTableView.allowsSelection = true
+        recentQueriesLabel.text = "Recent Queries"
     }
 }

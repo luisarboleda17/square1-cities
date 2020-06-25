@@ -13,12 +13,17 @@ protocol CitiesListViewModelProtocol {
     var fetchingCities: Bool { get }
     var fetchingMoreCities: Bool { get }
     var shouldLoadMore: Bool { get }
+    var queryExists: Bool { get }
     
     func searchCities(query: String)
     func loadMoreCities()
+    func clearSearch()
     
     func getCitiesCount() -> Int
     func getCity(forRow row: Int) -> City?
+    
+    func getRecentQueriesCount() -> Int
+    func getRecentQuery(forRow row: Int) -> String
     
     func launchMapResults()
 }
@@ -33,6 +38,11 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     internal var fetchingCities: Bool = false
     internal var fetchingMoreCities: Bool = false
     internal var shouldLoadMore: Bool = true
+    internal var queryExists: Bool {
+        get {
+            return self.query != nil
+        }
+    }
     private var cities: Results<City>?
     private var currentPage: Int = 1
     private var query: String?
@@ -93,12 +103,27 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
         }
     }
     
+    func clearSearch() {
+        self.cities = nil
+        self.currentPage = 1
+        self.query = nil
+        self.viewDelegate.citiesChanged()
+    }
+    
     func getCitiesCount() -> Int {
         return cities?.count ?? 0
     }
     
     func getCity(forRow row: Int) -> City? {
         return cities?[row]
+    }
+    
+    func getRecentQueriesCount() -> Int {
+        return 3
+    }
+    
+    func getRecentQuery(forRow row: Int) -> String {
+        return "Prueba"
     }
     
     func launchMapResults() {
