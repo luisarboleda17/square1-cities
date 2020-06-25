@@ -127,7 +127,7 @@ class CacheManager {
     private func getRecentQueries(forRealm realm: Realm) -> Results<Query>? {
         let queries = realm.objects(Query.self).sorted(byKeyPath: "createdAt", ascending: false)
         if (queries.count > 0) {
-            return queries.prefix(7).base
+            return queries
         } else {
             return nil
         }

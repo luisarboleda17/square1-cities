@@ -31,6 +31,7 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
         super.viewDidLoad()
         
         configureView()
+        viewModel.loadRecentQueries()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

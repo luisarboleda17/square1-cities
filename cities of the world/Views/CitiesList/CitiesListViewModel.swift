@@ -37,6 +37,8 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     private var coordinator: MainCoordinator!
     private var citiesRepository: CitiesRepository!
     
+    private var MAX_QUERIES_LIMIT = 7
+    
     internal var fetchingCities: Bool = false
     internal var fetchingMoreCities: Bool = false
     internal var shouldLoadMore: Bool = true
@@ -124,11 +126,17 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     func loadRecentQueries() {
         if let recentQueries = citiesRepository.getRecentQueries() {
             self.recentQueries = recentQueries
+            self.viewDelegate.citiesChanged()
         }
     }
     
     func getRecentQueriesCount() -> Int {
-        return self.recentQueries?.count ?? 0
+        if let recentQueries = self.recentQueries {
+            let queriesCount = recentQueries.count
+            return queriesCount <= MAX_QUERIES_LIMIT ? queriesCount : MAX_QUERIES_LIMIT
+        } else {
+            return 0
+        }
     }
     
     func getRecentQuery(forRow row: Int) -> String {
