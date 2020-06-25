@@ -51,9 +51,10 @@ extension CitiesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastElement = viewModel.getCitiesCount() - 1
-        if indexPath.row == lastElement && !viewModel.fetchingCities {
-            viewModel.loadMoreCities()
+        if (!viewModel.fetchingCities && !viewModel.fetchingMoreCities && viewModel.shouldLoadMore) {
+            if (indexPath.row == viewModel.getCitiesCount() - 6) {
+                viewModel.loadMoreCities()
+            }
         }
     }
 }

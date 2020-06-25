@@ -16,7 +16,7 @@ class CitiesListViewController: UIViewController & BindableViewDelegate {
     typealias ViewModel = CitiesListViewModelProtocol
 
     internal var viewModel: ViewModel!
-    private let VIEW_TITLE = "Cities of the world"
+    private let VIEW_TITLE = "Search a city"
     
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var citiesTableView: UITableView!

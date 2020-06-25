@@ -11,6 +11,8 @@ import RealmSwift
 
 protocol CitiesListViewModelProtocol {
     var fetchingCities: Bool { get }
+    var fetchingMoreCities: Bool { get }
+    var shouldLoadMore: Bool { get }
     
     func searchCities(query: String)
     func loadMoreCities()
@@ -28,7 +30,9 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
     private var coordinator: MainCoordinator!
     private var citiesRepository: CitiesRepository!
     
-    var fetchingCities: Bool = false
+    internal var fetchingCities: Bool = false
+    internal var fetchingMoreCities: Bool = false
+    internal var shouldLoadMore: Bool = true
     private var cities: Results<City>?
     private var currentPage: Int = 1
     private var query: String?
@@ -42,33 +46,49 @@ class CitiesListViewModel: BindableViewModel & CitiesListViewModelProtocol {
         self.query = query
         self.currentPage = 1
         self.fetchingCities = true
+        self.shouldLoadMore = true
         self.viewDelegate.citiesChanged()
-        citiesRepository.search(withQuery: query, page: currentPage) {
-            (cities, error) in
-            if let cities = cities {
-                self.cities = cities
+        self.citiesRepository.search(withQuery: query, page: self.currentPage) {
+            cities, lastPage, error in
+            
+            guard let cities = cities, error == nil else {
                 self.fetchingCities = false
+                if (error == CitiesSearchError.noResults) {
+                    self.shouldLoadMore = !lastPage
+                }
                 self.viewDelegate.citiesChanged()
-            } else {
-                print("Error getting results")
+                return
             }
+            self.cities = cities
+            self.fetchingCities = false
+            self.shouldLoadMore = !lastPage
+            
+            self.viewDelegate.citiesChanged()
         }
     }
     
     func loadMoreCities() {
         if let query = query {
+            print("fetching more")
             self.currentPage += 1
-            self.fetchingCities = true
-            self.viewDelegate.citiesChanged()
-            citiesRepository.search(withQuery: query, page: currentPage) {
-                (cities, error) in
-                if let cities = cities {
-                    self.cities = cities
-                    self.fetchingCities = false
+            self.fetchingMoreCities = true
+            self.shouldLoadMore = false
+            self.citiesRepository.search(withQuery: query, page: self.currentPage) {
+                cities, lastPage, error in
+                
+                guard let cities = cities, error == nil else {
+                    self.fetchingMoreCities = false
+                    if (error == CitiesSearchError.noResults) {
+                        self.shouldLoadMore = !lastPage
+                    }
                     self.viewDelegate.citiesChanged()
-                } else {
-                    print("Error getting results")
+                    return
                 }
+                self.cities = cities
+                self.fetchingMoreCities = false
+                self.shouldLoadMore = !lastPage
+                
+                self.viewDelegate.citiesChanged()
             }
         }
     }

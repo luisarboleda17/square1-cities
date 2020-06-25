@@ -10,6 +10,8 @@ import Foundation
 
 extension CitiesListViewController: CitiesListViewDelegateProtocol {
     internal func citiesChanged() {
-        self.citiesTableView.reloadData()
+        OperationQueue.main.addOperation {
+            self.citiesTableView.reloadData()
+        }
     }
 }
