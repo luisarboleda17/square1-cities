@@ -342,19 +342,4 @@ class CacheManagerTests: XCTestCase {
             XCTAssert(queries.count == 4)
         }
     }
-    
-    func testAddRecentQueryOverflow() throws {
-        try clearDatabase()
-        
-        for value in 1...15 {
-            cacheManager.addQuery(query: "Query \(value)")
-        }
-        
-        let recentQueries = cacheManager.getRecentQueries()
-        XCTAssertNotNil(recentQueries)
-        
-        if let queries = recentQueries {
-            XCTAssert(queries.count == 7)
-        }
-    }
 }
