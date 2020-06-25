@@ -20,6 +20,7 @@
 		D28E367D24A2E86E00D19033 /* ApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28E367C24A2E86E00D19033 /* ApiTests.swift */; };
 		D28E367F24A2F0E900D19033 /* PaginationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28E367E24A2F0E900D19033 /* PaginationResult.swift */; };
 		D28E368724A30A9300D19033 /* CitiesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28E368624A30A9300D19033 /* CitiesRepository.swift */; };
+		D28E3E9B24A50EF7008F17F6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D28E3E9A24A50EF6008F17F6 /* README.md */; };
 		D2930D9E24A3A8A200593133 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930D9D24A3A8A200593133 /* Coordinator.swift */; };
 		D2930DA024A3A94600593133 /* Xibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930D9F24A3A94600593133 /* Xibs.swift */; };
 		D2930DA424A3AAA800593133 /* BindableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2930DA324A3AAA800593133 /* BindableViewModel.swift */; };
@@ -98,6 +99,7 @@
 		D28E367C24A2E86E00D19033 /* ApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTests.swift; sourceTree = "<group>"; };
 		D28E367E24A2F0E900D19033 /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
 		D28E368624A30A9300D19033 /* CitiesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesRepository.swift; sourceTree = "<group>"; };
+		D28E3E9A24A50EF6008F17F6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D2930D9D24A3A8A200593133 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		D2930D9F24A3A94600593133 /* Xibs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xibs.swift; sourceTree = "<group>"; };
 		D2930DA324A3AAA800593133 /* BindableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableViewModel.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		D22D597024A078990090E5D1 = {
 			isa = PBXGroup;
 			children = (
+				D28E3E9A24A50EF6008F17F6 /* README.md */,
 				D22D597B24A078990090E5D1 /* cities of the world */,
 				D22D599224A0789B0090E5D1 /* cities of the worldTests */,
 				D22D599D24A0789B0090E5D1 /* cities of the worldUITests */,
@@ -487,6 +490,7 @@
 				D22D598924A0789B0090E5D1 /* LaunchScreen.storyboard in Resources */,
 				D22D598624A0789B0090E5D1 /* Assets.xcassets in Resources */,
 				D2930DE624A4EE3800593133 /* RecentQueryCell.xib in Resources */,
+				D28E3E9B24A50EF7008F17F6 /* README.md in Resources */,
 				D2930DE124A483FE00593133 /* CityLoadingCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -781,7 +785,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -836,7 +840,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
