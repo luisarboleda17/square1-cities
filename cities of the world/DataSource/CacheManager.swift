@@ -108,6 +108,22 @@ class CacheManager {
         }
     }
     
+    public func addQuery(query: String) {
+        do {
+            let inMemoryRealm = try Realm(configuration: inMemoryRealmConfiguration)
+            let storageRealm = try Realm(configuration: storageRealmConfiguration)
+            
+            // Create query object
+            let queryObject = Query()
+            queryObject.query = query
+            queryObject.createdAt = Date()
+            
+            // Add to both, in-memory and storage database
+            try inMemoryRealm.write {inMemoryRealm.add(queryObject, update: .modified)}
+            try storageRealm.write {storageRealm.create(Query.self, value: queryObject, update: .modified)}
+        } catch _ as NSError {}
+    }
+    
     private func getRecentQueries(forRealm realm: Realm) -> Results<Query>? {
         let queries = realm.objects(Query.self).sorted(byKeyPath: "createdAt", ascending: false)
         if (queries.count > 0) {

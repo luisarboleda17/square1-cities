@@ -57,4 +57,8 @@ class CitiesRepository {
     public func getRecentQueries() -> Results<Query>? {
         return cacheManager.getRecentQueries()
     }
+    
+    public func addQuery(query: String) {
+        cacheManager.addQuery(query: query)
+    }
 }
