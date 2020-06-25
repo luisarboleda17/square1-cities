@@ -889,6 +889,7 @@
 			baseConfigurationReference = AF874AB28667705C97B074FD /* Pods-cities of the worldTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MA5JRH6SQ4;
 				INFOPLIST_FILE = "cities of the worldTests/Info.plist";
@@ -911,6 +912,7 @@
 			baseConfigurationReference = 35410B3859B4766574DF00C5 /* Pods-cities of the worldTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MA5JRH6SQ4;
 				INFOPLIST_FILE = "cities of the worldTests/Info.plist";
