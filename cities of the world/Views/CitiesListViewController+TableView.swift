@@ -14,22 +14,25 @@ extension CitiesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.getCitiesCount()
     }
 }
 
 extension CitiesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let city = viewModel.getCity(forRow: indexPath.row)
+        
         guard let cityRow = tableView.dequeueReusableCell(withIdentifier: Identifiers.cityCell, for: indexPath) as? CityRow else {
-            return createCityCell(row: CityRow(), cityName: "Test", countryName: "Test", continentName: "Test")
+            return createCityCell(row: CityRow(), cityName: city.name, countryName: city.countryName, continentName: city.continentName)
         }
-        return createCityCell(row: cityRow, cityName: "test 1", countryName: "Test 2", continentName: "Test 3")
+        return createCityCell(row: cityRow, cityName: city.name, countryName: city.countryName, continentName: city.continentName)
     }
     
     private func createCityCell(row: CityRow, cityName: String, countryName: String, continentName: String) -> CityRow {
-        row.cityName = "City test"
-        row.countryName = "Country test"
-        row.continentName = "Continent test"
+        row.cityName = cityName
+        row.countryName = countryName
+        row.continentName = continentName
         return row
     }
 }
